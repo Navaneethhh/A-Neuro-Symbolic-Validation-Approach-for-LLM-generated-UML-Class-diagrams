@@ -1,0 +1,526 @@
+/' Snippet: snippet_01 | Model: Llama 3.3 70B (Groq) | Status: PASS (8/8) '/
+@startuml
+class Patient {
+  - fullName : String
+  - contact : String
+  - medicalSummary : String
+  + getFullName() : String
+  + getContact() : String
+  + getMedicalSummary() : String
+}
+
+class Doctor {
+  - doctorId : String
+  - specialty : String
+  + getDoctorId() : String
+  + getSpecialty() : String
+}
+
+class Appointment {
+  - appointmentId : String
+  - date : Date
+  - time : Time
+  - status : String
+  + getAppointmentId() : String
+  + getDate() : Date
+  + getTime() : Time
+  + getStatus() : String
+}
+
+class Prescription {
+  - prescriptionId : String
+  - medication : String
+  - dosage : String
+  + getPrescriptionId() : String
+  + getMedication() : String
+  + getDosage() : String
+}
+
+class BillingRecord {
+  - billingId : String
+  - totalCost : double
+  + getBillingId() : String
+  + calculateTotal() : double
+}
+
+Patient "1" -- "0..*" Appointment
+Doctor "1" -- "0..*" Appointment
+Appointment "1" -- "0..*" Prescription
+Appointment "1" -- "1" BillingRecord
+Doctor "1" -- "0..*" Prescription
+
+class MedicalAppointmentSystem {
+  + assignDoctorToAppointment(appointment: Appointment, doctor: Doctor) : boolean
+  + scheduleAppointment(patient: Patient, doctor: Doctor, date: Date, time: Time) : Appointment
+}
+
+MedicalAppointmentSystem "1" -- "0..*" Patient
+MedicalAppointmentSystem "1" -- "0..*" Doctor
+MedicalAppointmentSystem "1" -- "0..*" Appointment
+
+@enduml
+
+/' Snippet: snippet_01 | Model: Nemotron 120B (OpenRouter) | Status: PASS (8/8) '/
+@startuml
+class Patient {
+    - patientId : String
+    - fullName : String
+    - contact : String
+    - medicalSummary : String
+    + getPatientId() : String
+    + getFullName() : String
+    + setFullName(name:String) : void
+}
+class Doctor {
+    - doctorId : String
+    - fullName : String
+    - specialty : String
+    + getDoctorId() : String
+    + getSpecialty() : String
+}
+class Appointment {
+    - appointmentId : String
+    - date : java.time.LocalDate
+    - time : java.time.LocalTime
+    - status : String
+    + getAppointmentId() : String
+    + setStatus(s:String) : void
+}
+class Prescription {
+    - prescriptionId : String
+    - medicationName : String
+    - dosage : String
+    + getPrescriptionId() : String
+    + getDosage() : String
+}
+class BillingRecord {
+    - recordId : String
+    - totalCost : double
+    + getRecordId() : String
+    + getTotalCost() : double
+}
+Patient "0..*" -- "1" Appointment
+Doctor "0..*" -- "1" Appointment
+Appointment "1" -- "1" BillingRecord
+Doctor "0..*" -- "1" Prescription
+@enduml
+
+/' Snippet: snippet_02 | Model: Llama 3.3 70B (Groq) | Status: PASS (8/8) '/
+@startuml
+class Staff {
+  - staffId: String
+  - name: String
+  + getStaffId() : String
+  + getName() : String
+}
+
+class Physician {
+  - physicianId: String
+  - specialization: String
+  + getPhysicianId() : String
+  + getSpecialization() : String
+}
+
+class Nurse {
+  - nurseId: String
+  - qualification: String
+  + getNurseId() : String
+  + getQualification() : String
+}
+
+class Patient {
+  - patientId: String
+  - medicalHistory: String
+  + getPatientId() : String
+  + getMedicalHistory() : String
+}
+
+class MedicalRecord {
+  - recordId: String
+  - patientId: String
+  - healthObservations: String
+  + getRecordId() : String
+  + getPatientId() : String
+  + getHealthObservations() : String
+}
+
+class DepartmentReport {
+  - reportId: String
+  - departmentName: String
+  - healthObservations: String
+  + getReportId() : String
+  + getDepartmentName() : String
+  + getHealthObservations() : String
+}
+
+class Consultation {
+  - consultationId: String
+  - patientId: String
+  - physicianId: String
+  + getConsultationId() : String
+  + getPatientId() : String
+  + getPhysicianId() : String
+}
+
+class DiagnosticReport {
+  - reportId: String
+  - patientId: String
+  - physicianId: String
+  + getReportId() : String
+  + getPatientId() : String
+  + getPhysicianId() : String
+}
+
+class HealthObservation {
+  - observationId: String
+  - patientId: String
+  - observation: String
+  + getObservationId() : String
+  + getPatientId() : String
+  + getObservation() : String
+}
+
+class VitalCheck {
+  - checkId: String
+  - patientId: String
+  - nurseId: String
+  + getCheckId() : String
+  + getPatientId() : String
+  + getNurseId() : String
+}
+
+Staff "1" -- "0..*" Physician
+Staff "1" -- "0..*" Nurse
+Physician "1" -- "0..*" Consultation
+Physician "1" -- "0..*" DiagnosticReport
+Physician "1" -- "0..*" HealthObservation
+Nurse "1" -- "0..*" VitalCheck
+Nurse "1" -- "1" Physician
+Patient "1" -- "0..*" MedicalRecord
+Patient "1" -- "0..*" Consultation
+MedicalRecord "1" -- "0..*" HealthObservation
+DepartmentReport "1" -- "0..*" HealthObservation
+@enduml
+
+/' Snippet: snippet_02 | Model: Nemotron 120B (OpenRouter) | Status: FAIL (6/8) '/
+@startuml
+abstract class Staff {
+    - staffId : String
+    - name : String
+    - role : String
+    + getStaffId() : String
+    + getName() : String
+    + getRole() : String
+}
+
+class Physician {
+    - licenseNumber : String
+    - specialty : String
+    + conductConsultation(p : Patient) : Consultation
+    + writeDiagnosticReport(p : Patient) : DiagnosticReport
+    + recordHealthObservation(p : Patient, desc : String) : HealthObservation
+}
+
+class Nurse {
+    - shift : String
+    + assistPhysician(p : Physician) : void
+    + performVitalCheck(p : Patient) : VitalCheck
+}
+
+class Patient {
+    - patientId : String
+    - name : String
+    - dob : String
+    + getPatientId() : String
+    + getName() : String
+    + getDob() : String
+}
+
+class MedicalRecord {
+    - recordId : String
+    - date : String
+    + getRecordId() : String
+    + getDate() : String
+}
+
+class DepartmentReport {
+    - reportId : String
+    - department : String
+    - date : String
+    + getReportId() : String
+    + getDepartment() : String
+    + getDate() : String
+}
+
+class HealthObservation {
+    - obsId : String
+    - description : String
+    - timestamp : String
+    + getObsId() : String
+    + getDescription() : String
+    + getTimestamp() : String
+}
+
+class DiagnosticReport {
+    - reportId : String
+    - findings : String
+    + getReportId() : String
+    + getFindings() : String
+}
+
+class VitalCheck {
+    - checkId : String
+    - bloodPressure : String
+    - heartRate : int
+    - temperature : double
+    + getCheckId() : String
+    + getBloodPressure() : String
+    + getHeartRate() : int
+    + getTemperature() : double
+}
+
+class Consultation {
+    - consultationId : String
+    - date : String
+    - notes : String
+    + getConsultationId() : String
+    + getDate() : String
+    + getNotes() : String
+}
+
+Physician "1" -- "0..*" Consultation : conducts >
+Consultation "1" -- "1" Patient : for >
+
+Physician "1" -- "0..*" DiagnosticReport : writes >
+DiagnosticReport "1" -- "1" Patient : for >
+
+Physician "1" -- "0..*" HealthObservation : records >
+HealthObservation "1" -- "1" Patient : for >
+
+Nurse "0..*" -- "0..*" Physician : assists >
+Nurse "1" -- "0..*" VitalCheck : performs >
+VitalCheck "1" -- "1" Patient : for >
+
+HealthObservation "1" -- "0..*" MedicalRecord : linked to >
+MedicalRecord "1" -- "0..*" HealthObservation : contains >
+
+HealthObservation "1" -- "0..*" DepartmentReport : linked to >
+DepartmentReport "1" -- "0..*" HealthObservation : includes >
+
+Staff <|-- Physician
+Staff <|-- Nurse
+@enduml
+
+/' Snippet: snippet_03 | Model: Llama 3.3 70B (Groq) | Status: PASS (8/8) '/
+@startuml
+class Customer {
+  - customerId : String
+  - name : String
+  + getCustomerId() : String
+  + getName() : String
+}
+
+class Product {
+  - productId : String
+  - price : double
+  + getProductId() : String
+  + getPrice() : double
+}
+
+class ShoppingCart {
+  - cartId : String
+  - items : List<OrderItem>
+  + calculateTotal() : double
+  + addItem(item : OrderItem) : void
+  + removeItem(item : OrderItem) : void
+}
+
+class OrderItem {
+  - itemId : String
+  - quantity : int
+  - product : Product
+  + getItemId() : String
+  + getQuantity() : int
+  + getProduct() : Product
+}
+
+class Order {
+  - orderId : String
+  - customer : Customer
+  - items : List<OrderItem>
+  - payment : Payment
+  + getOrderId() : String
+  + getCustomer() : Customer
+  + getItems() : List<OrderItem>
+  + getPayment() : Payment
+}
+
+class Payment {
+  - paymentId : String
+  - amount : double
+  - status : String
+  + getPaymentId() : String
+  + getAmount() : double
+  + getStatus() : String
+}
+
+Customer "1" -- "0..*" Order
+Order "1" -- "0..*" OrderItem
+OrderItem "1" -- "1" Product
+ShoppingCart "1" -- "0..*" OrderItem : contains
+Order "1" -- "1" Payment
+Customer "1" -- "1" ShoppingCart : owns
+
+@enduml
+
+/' Snippet: snippet_04 | Model: Llama 3.3 70B (Groq) | Status: PASS (8/8) '/
+@startuml
+class Warehouse {
+  - id: Integer
+  - location: String
+  - capacity: Integer
+  + getAvailableSpace() : Integer
+  + receiveShipment(shipment: Shipment) : void
+}
+
+class Supplier {
+  - id: Integer
+  - name: String
+  - address: String
+  + getShipments() : List[Shipment]
+  + addShipment(shipment: Shipment) : void
+}
+
+class StockItem {
+  - id: Integer
+  - description: String
+  - quantity: Integer
+  - threshold: Integer
+  + getQuantity() : Integer
+  + restock(quantity: Integer) : void
+}
+
+class Shipment {
+  - id: Integer
+  - deliveryDate: Date
+  - trackingNumber: String
+  + getDeliveryDate() : Date
+  + getTrackingNumber() : String
+}
+
+class WarehouseManager {
+  - id: Integer
+  - name: String
+  + initiateRestockOrder(stockItem: StockItem) : void
+  + monitorWarehouse(warehouse: Warehouse) : void
+}
+
+class RestockOrder {
+  - id: Integer
+  - stockItem: StockItem
+  - quantity: Integer
+  + getStockItem() : StockItem
+  + getQuantity() : Integer
+}
+
+Warehouse "1" -- "0..*" StockItem
+StockItem "0..*" -- "0..*" Warehouse : stored in >
+Supplier "1" -- "0..*" Shipment
+Shipment "0..*" -- "0..1" Warehouse : delivered to >
+WarehouseManager "1" -- "0..*" Warehouse : manages >
+WarehouseManager "1" -- "0..*" RestockOrder : initiates >
+StockItem "1" -- "0..*" RestockOrder : subject of >
+Supplier "1" -- "0..*" RestockOrder : fulfills >
+Warehouse "1" -- "0..*" Shipment : receives >
+@enduml
+
+/' Snippet: snippet_05 | Model: Llama 3.3 70B (Groq) | Status: PASS (8/8) '/
+@startuml
+class BookTitle {
+  - title: String
+  - author: String
+  - publicationYear: Integer
+  + getPrerequisites() : List<BookTitle>
+  + getRecommendations() : List<BookTitle>
+}
+
+class BookCopy {
+  - copyId: String
+  - status: String
+  + isAvailable() : boolean
+}
+
+class LibraryMember {
+  - memberId: String
+  - name: String
+  - email: String
+  + borrowBook(copy: BookCopy) : void
+  + returnBook(copy: BookCopy) : void
+}
+
+class Loan {
+  - loanId: String
+  - borrowDate: Date
+  - dueDate: Date
+  + extendLoan(days: Integer) : void
+  + calculateFine() : double
+}
+
+class Librarian {
+  - librarianId: String
+  - name: String
+  + approveLoanExtension(loan: Loan) : void
+  + calculateOverdueFine(loan: Loan) : double
+}
+
+BookTitle "1" -- "0..*" BookTitle : prerequisite
+BookTitle "1" -- "0..*" BookTitle : recommendation
+BookTitle "1" -- "0..*" BookCopy : hasCopy
+BookCopy "0..*" -- "1" BookTitle : belongsTo
+LibraryMember "1" -- "0..*" Loan : hasLoan
+Loan "1" -- "1" BookCopy : forCopy
+Loan "1" -- "1" LibraryMember : forMember
+Librarian "1" -- "0..*" Loan : manages
+LibraryMember "1" -- "0..*" BookCopy : borrowed
+@enduml
+
+/' Snippet: snippet_06 | Model: Llama 3.3 70B (Groq) | Status: FAIL (4/8) '/
+@startuml
+class MediaItem {
+  title: String
+  publisher: String
+  availabilityState: Boolean
+  reserve(): void
+  stream(): void
+  renewLoan(): void
+}
+
+class Patron {
+  id: Integer
+  name: String
+  email: String
+  renewLoan(mediaItem: MediaItem): void
+  streamMedia(mediaItem: MediaItem): void
+  payLateFees(): void
+}
+
+class Payment {
+  amount: Float
+  paymentDate: Date
+  processPayment(): void
+}
+
+class SystemAdministrator {
+  id: Integer
+  name: String
+  maintainPatronAccount(patron: Patron): void
+  updateMediaCatalog(mediaItem: MediaItem): void
+}
+
+MediaItem *--1..* Patron : reservedBy
+Patron *--1..* Payment : makes
+SystemAdministrator *--1..* Patron : maintains
+SystemAdministrator *--1..* MediaItem : updates
+Patron 1--* MediaItem : streams
+@enduml
+

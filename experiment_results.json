@@ -1,0 +1,2540 @@
+[
+  {
+    "model": "Gemini 1.5 Pro",
+    "snippet_id": "snippet_01",
+    "domain": "General",
+    "initial_errors": 8,
+    "loops_used": 0,
+    "post_loop_errors": 8,
+    "passed": 0,
+    "score_str": "0/8",
+    "accuracy_pct": "0.0%",
+    "status": "FAIL (API Error)",
+    "puml": "",
+    "parsed_ast": {}
+  },
+  {
+    "model": "Llama 3.3 70B (Groq)",
+    "snippet_id": "snippet_01",
+    "domain": "General",
+    "initial_errors": 0,
+    "loops_used": 0,
+    "post_loop_errors": 0,
+    "passed": 8,
+    "score_str": "8/8",
+    "accuracy_pct": "100.0%",
+    "status": "PASS",
+    "puml": "@startuml\nclass Patient {\n  - fullName : String\n  - contact : String\n  - medicalSummary : String\n  + getFullName() : String\n  + getContact() : String\n  + getMedicalSummary() : String\n}\n\nclass Doctor {\n  - doctorId : String\n  - specialty : String\n  + getDoctorId() : String\n  + getSpecialty() : String\n}\n\nclass Appointment {\n  - appointmentId : String\n  - date : Date\n  - time : Time\n  - status : String\n  + getAppointmentId() : String\n  + getDate() : Date\n  + getTime() : Time\n  + getStatus() : String\n}\n\nclass Prescription {\n  - prescriptionId : String\n  - medication : String\n  - dosage : String\n  + getPrescriptionId() : String\n  + getMedication() : String\n  + getDosage() : String\n}\n\nclass BillingRecord {\n  - billingId : String\n  - totalCost : double\n  + getBillingId() : String\n  + calculateTotal() : double\n}\n\nPatient \"1\" -- \"0..*\" Appointment\nDoctor \"1\" -- \"0..*\" Appointment\nAppointment \"1\" -- \"0..*\" Prescription\nAppointment \"1\" -- \"1\" BillingRecord\nDoctor \"1\" -- \"0..*\" Prescription\n\nclass MedicalAppointmentSystem {\n  + assignDoctorToAppointment(appointment: Appointment, doctor: Doctor) : boolean\n  + scheduleAppointment(patient: Patient, doctor: Doctor, date: Date, time: Time) : Appointment\n}\n\nMedicalAppointmentSystem \"1\" -- \"0..*\" Patient\nMedicalAppointmentSystem \"1\" -- \"0..*\" Doctor\nMedicalAppointmentSystem \"1\" -- \"0..*\" Appointment\n\n@enduml",
+    "parsed_ast": {
+      "elements": [
+        {
+          "name": "class",
+          "title": "Patient",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "fullName",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "contact",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "medicalSummary",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getFullName()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getContact()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getMedicalSummary()",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "Doctor",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "doctorId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "specialty",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getDoctorId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getSpecialty()",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "Appointment",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "appointmentId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "date",
+              "type": "Date"
+            },
+            {
+              "kind": "attribute",
+              "name": "time",
+              "type": "Time"
+            },
+            {
+              "kind": "attribute",
+              "name": "status",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getAppointmentId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getDate()",
+              "type": "Date"
+            },
+            {
+              "kind": "method",
+              "name": "getTime()",
+              "type": "Time"
+            },
+            {
+              "kind": "method",
+              "name": "getStatus()",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "Prescription",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "prescriptionId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "medication",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "dosage",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getPrescriptionId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getMedication()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getDosage()",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "BillingRecord",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "billingId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "totalCost",
+              "type": "double"
+            },
+            {
+              "kind": "method",
+              "name": "getBillingId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "calculateTotal()",
+              "type": "double"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "MedicalAppointmentSystem",
+          "members": [
+            {
+              "kind": "method",
+              "name": "assignDoctorToAppointment(appointment: Appointment, doctor: Doctor)",
+              "type": "boolean"
+            },
+            {
+              "kind": "method",
+              "name": "scheduleAppointment(patient: Patient, doctor: Doctor, date: Date, time: Time)",
+              "type": "Appointment"
+            }
+          ]
+        },
+        {
+          "name": "relationship",
+          "left": "Patient",
+          "right": "Appointment",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": null
+        },
+        {
+          "name": "relationship",
+          "left": "Doctor",
+          "right": "Appointment",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": null
+        },
+        {
+          "name": "relationship",
+          "left": "Appointment",
+          "right": "Prescription",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": null
+        },
+        {
+          "name": "relationship",
+          "left": "Appointment",
+          "right": "BillingRecord",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "1",
+          "arrow": "--",
+          "label": null
+        },
+        {
+          "name": "relationship",
+          "left": "Doctor",
+          "right": "Prescription",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": null
+        },
+        {
+          "name": "relationship",
+          "left": "MedicalAppointmentSystem",
+          "right": "Patient",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": null
+        },
+        {
+          "name": "relationship",
+          "left": "MedicalAppointmentSystem",
+          "right": "Doctor",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": null
+        },
+        {
+          "name": "relationship",
+          "left": "MedicalAppointmentSystem",
+          "right": "Appointment",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": null
+        }
+      ]
+    }
+  },
+  {
+    "model": "Nemotron 120B (OpenRouter)",
+    "snippet_id": "snippet_01",
+    "domain": "General",
+    "initial_errors": 0,
+    "loops_used": 0,
+    "post_loop_errors": 0,
+    "passed": 8,
+    "score_str": "8/8",
+    "accuracy_pct": "100.0%",
+    "status": "PASS",
+    "puml": "@startuml\nclass Patient {\n    - patientId : String\n    - fullName : String\n    - contact : String\n    - medicalSummary : String\n    + getPatientId() : String\n    + getFullName() : String\n    + setFullName(name:String) : void\n}\nclass Doctor {\n    - doctorId : String\n    - fullName : String\n    - specialty : String\n    + getDoctorId() : String\n    + getSpecialty() : String\n}\nclass Appointment {\n    - appointmentId : String\n    - date : java.time.LocalDate\n    - time : java.time.LocalTime\n    - status : String\n    + getAppointmentId() : String\n    + setStatus(s:String) : void\n}\nclass Prescription {\n    - prescriptionId : String\n    - medicationName : String\n    - dosage : String\n    + getPrescriptionId() : String\n    + getDosage() : String\n}\nclass BillingRecord {\n    - recordId : String\n    - totalCost : double\n    + getRecordId() : String\n    + getTotalCost() : double\n}\nPatient \"0..*\" -- \"1\" Appointment\nDoctor \"0..*\" -- \"1\" Appointment\nAppointment \"1\" -- \"1\" BillingRecord\nDoctor \"0..*\" -- \"1\" Prescription\n@enduml",
+    "parsed_ast": {
+      "elements": [
+        {
+          "name": "class",
+          "title": "Patient",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "patientId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "fullName",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "contact",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "medicalSummary",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getPatientId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getFullName()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "setFullName(name:String)",
+              "type": "void"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "Doctor",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "doctorId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "fullName",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "specialty",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getDoctorId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getSpecialty()",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "Appointment",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "appointmentId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "date",
+              "type": "java.time.LocalDate"
+            },
+            {
+              "kind": "attribute",
+              "name": "time",
+              "type": "java.time.LocalTime"
+            },
+            {
+              "kind": "attribute",
+              "name": "status",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getAppointmentId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "setStatus(s:String)",
+              "type": "void"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "Prescription",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "prescriptionId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "medicationName",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "dosage",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getPrescriptionId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getDosage()",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "BillingRecord",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "recordId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "totalCost",
+              "type": "double"
+            },
+            {
+              "kind": "method",
+              "name": "getRecordId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getTotalCost()",
+              "type": "double"
+            }
+          ]
+        },
+        {
+          "name": "relationship",
+          "left": "Patient",
+          "right": "Appointment",
+          "leftMultiplicity": "0..*",
+          "rightMultiplicity": "1",
+          "arrow": "--",
+          "label": null
+        },
+        {
+          "name": "relationship",
+          "left": "Doctor",
+          "right": "Appointment",
+          "leftMultiplicity": "0..*",
+          "rightMultiplicity": "1",
+          "arrow": "--",
+          "label": null
+        },
+        {
+          "name": "relationship",
+          "left": "Appointment",
+          "right": "BillingRecord",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "1",
+          "arrow": "--",
+          "label": null
+        },
+        {
+          "name": "relationship",
+          "left": "Doctor",
+          "right": "Prescription",
+          "leftMultiplicity": "0..*",
+          "rightMultiplicity": "1",
+          "arrow": "--",
+          "label": null
+        }
+      ]
+    }
+  },
+  {
+    "model": "Gemini 1.5 Pro",
+    "snippet_id": "snippet_02",
+    "domain": "General",
+    "initial_errors": 8,
+    "loops_used": 0,
+    "post_loop_errors": 8,
+    "passed": 0,
+    "score_str": "0/8",
+    "accuracy_pct": "0.0%",
+    "status": "FAIL (API Error)",
+    "puml": "",
+    "parsed_ast": {}
+  },
+  {
+    "model": "Llama 3.3 70B (Groq)",
+    "snippet_id": "snippet_02",
+    "domain": "General",
+    "initial_errors": 0,
+    "loops_used": 0,
+    "post_loop_errors": 0,
+    "passed": 8,
+    "score_str": "8/8",
+    "accuracy_pct": "100.0%",
+    "status": "PASS",
+    "puml": "@startuml\nclass Staff {\n  - staffId: String\n  - name: String\n  + getStaffId() : String\n  + getName() : String\n}\n\nclass Physician {\n  - physicianId: String\n  - specialization: String\n  + getPhysicianId() : String\n  + getSpecialization() : String\n}\n\nclass Nurse {\n  - nurseId: String\n  - qualification: String\n  + getNurseId() : String\n  + getQualification() : String\n}\n\nclass Patient {\n  - patientId: String\n  - medicalHistory: String\n  + getPatientId() : String\n  + getMedicalHistory() : String\n}\n\nclass MedicalRecord {\n  - recordId: String\n  - patientId: String\n  - healthObservations: String\n  + getRecordId() : String\n  + getPatientId() : String\n  + getHealthObservations() : String\n}\n\nclass DepartmentReport {\n  - reportId: String\n  - departmentName: String\n  - healthObservations: String\n  + getReportId() : String\n  + getDepartmentName() : String\n  + getHealthObservations() : String\n}\n\nclass Consultation {\n  - consultationId: String\n  - patientId: String\n  - physicianId: String\n  + getConsultationId() : String\n  + getPatientId() : String\n  + getPhysicianId() : String\n}\n\nclass DiagnosticReport {\n  - reportId: String\n  - patientId: String\n  - physicianId: String\n  + getReportId() : String\n  + getPatientId() : String\n  + getPhysicianId() : String\n}\n\nclass HealthObservation {\n  - observationId: String\n  - patientId: String\n  - observation: String\n  + getObservationId() : String\n  + getPatientId() : String\n  + getObservation() : String\n}\n\nclass VitalCheck {\n  - checkId: String\n  - patientId: String\n  - nurseId: String\n  + getCheckId() : String\n  + getPatientId() : String\n  + getNurseId() : String\n}\n\nStaff \"1\" -- \"0..*\" Physician\nStaff \"1\" -- \"0..*\" Nurse\nPhysician \"1\" -- \"0..*\" Consultation\nPhysician \"1\" -- \"0..*\" DiagnosticReport\nPhysician \"1\" -- \"0..*\" HealthObservation\nNurse \"1\" -- \"0..*\" VitalCheck\nNurse \"1\" -- \"1\" Physician\nPatient \"1\" -- \"0..*\" MedicalRecord\nPatient \"1\" -- \"0..*\" Consultation\nMedicalRecord \"1\" -- \"0..*\" HealthObservation\nDepartmentReport \"1\" -- \"0..*\" HealthObservation\n@enduml",
+    "parsed_ast": {
+      "elements": [
+        {
+          "name": "class",
+          "title": "Staff",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "staffId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "name",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getStaffId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getName()",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "Physician",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "physicianId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "specialization",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getPhysicianId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getSpecialization()",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "Nurse",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "nurseId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "qualification",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getNurseId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getQualification()",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "Patient",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "patientId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "medicalHistory",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getPatientId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getMedicalHistory()",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "MedicalRecord",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "recordId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "patientId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "healthObservations",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getRecordId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getPatientId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getHealthObservations()",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "DepartmentReport",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "reportId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "departmentName",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "healthObservations",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getReportId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getDepartmentName()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getHealthObservations()",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "Consultation",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "consultationId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "patientId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "physicianId",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getConsultationId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getPatientId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getPhysicianId()",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "DiagnosticReport",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "reportId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "patientId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "physicianId",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getReportId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getPatientId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getPhysicianId()",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "HealthObservation",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "observationId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "patientId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "observation",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getObservationId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getPatientId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getObservation()",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "VitalCheck",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "checkId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "patientId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "nurseId",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getCheckId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getPatientId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getNurseId()",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "relationship",
+          "left": "Staff",
+          "right": "Physician",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": null
+        },
+        {
+          "name": "relationship",
+          "left": "Staff",
+          "right": "Nurse",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": null
+        },
+        {
+          "name": "relationship",
+          "left": "Physician",
+          "right": "Consultation",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": null
+        },
+        {
+          "name": "relationship",
+          "left": "Physician",
+          "right": "DiagnosticReport",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": null
+        },
+        {
+          "name": "relationship",
+          "left": "Physician",
+          "right": "HealthObservation",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": null
+        },
+        {
+          "name": "relationship",
+          "left": "Nurse",
+          "right": "VitalCheck",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": null
+        },
+        {
+          "name": "relationship",
+          "left": "Nurse",
+          "right": "Physician",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "1",
+          "arrow": "--",
+          "label": null
+        },
+        {
+          "name": "relationship",
+          "left": "Patient",
+          "right": "MedicalRecord",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": null
+        },
+        {
+          "name": "relationship",
+          "left": "Patient",
+          "right": "Consultation",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": null
+        },
+        {
+          "name": "relationship",
+          "left": "MedicalRecord",
+          "right": "HealthObservation",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": null
+        },
+        {
+          "name": "relationship",
+          "left": "DepartmentReport",
+          "right": "HealthObservation",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": null
+        }
+      ]
+    }
+  },
+  {
+    "model": "Nemotron 120B (OpenRouter)",
+    "snippet_id": "snippet_02",
+    "domain": "General",
+    "initial_errors": 4,
+    "loops_used": 1,
+    "post_loop_errors": 4,
+    "passed": 6,
+    "score_str": "6/8",
+    "accuracy_pct": "75.0%",
+    "status": "FAIL",
+    "puml": "@startuml\nabstract class Staff {\n    - staffId : String\n    - name : String\n    - role : String\n    + getStaffId() : String\n    + getName() : String\n    + getRole() : String\n}\n\nclass Physician {\n    - licenseNumber : String\n    - specialty : String\n    + conductConsultation(p : Patient) : Consultation\n    + writeDiagnosticReport(p : Patient) : DiagnosticReport\n    + recordHealthObservation(p : Patient, desc : String) : HealthObservation\n}\n\nclass Nurse {\n    - shift : String\n    + assistPhysician(p : Physician) : void\n    + performVitalCheck(p : Patient) : VitalCheck\n}\n\nclass Patient {\n    - patientId : String\n    - name : String\n    - dob : String\n    + getPatientId() : String\n    + getName() : String\n    + getDob() : String\n}\n\nclass MedicalRecord {\n    - recordId : String\n    - date : String\n    + getRecordId() : String\n    + getDate() : String\n}\n\nclass DepartmentReport {\n    - reportId : String\n    - department : String\n    - date : String\n    + getReportId() : String\n    + getDepartment() : String\n    + getDate() : String\n}\n\nclass HealthObservation {\n    - obsId : String\n    - description : String\n    - timestamp : String\n    + getObsId() : String\n    + getDescription() : String\n    + getTimestamp() : String\n}\n\nclass DiagnosticReport {\n    - reportId : String\n    - findings : String\n    + getReportId() : String\n    + getFindings() : String\n}\n\nclass VitalCheck {\n    - checkId : String\n    - bloodPressure : String\n    - heartRate : int\n    - temperature : double\n    + getCheckId() : String\n    + getBloodPressure() : String\n    + getHeartRate() : int\n    + getTemperature() : double\n}\n\nclass Consultation {\n    - consultationId : String\n    - date : String\n    - notes : String\n    + getConsultationId() : String\n    + getDate() : String\n    + getNotes() : String\n}\n\nPhysician \"1\" -- \"0..*\" Consultation : conducts >\nConsultation \"1\" -- \"1\" Patient : for >\n\nPhysician \"1\" -- \"0..*\" DiagnosticReport : writes >\nDiagnosticReport \"1\" -- \"1\" Patient : for >\n\nPhysician \"1\" -- \"0..*\" HealthObservation : records >\nHealthObservation \"1\" -- \"1\" Patient : for >\n\nNurse \"0..*\" -- \"0..*\" Physician : assists >\nNurse \"1\" -- \"0..*\" VitalCheck : performs >\nVitalCheck \"1\" -- \"1\" Patient : for >\n\nHealthObservation \"1\" -- \"0..*\" MedicalRecord : linked to >\nMedicalRecord \"1\" -- \"0..*\" HealthObservation : contains >\n\nHealthObservation \"1\" -- \"0..*\" DepartmentReport : linked to >\nDepartmentReport \"1\" -- \"0..*\" HealthObservation : includes >\n\nStaff <|-- Physician\nStaff <|-- Nurse\n@enduml",
+    "parsed_ast": {
+      "elements": [
+        {
+          "name": "abstract",
+          "title": "Staff",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "staffId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "name",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "role",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getStaffId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getName()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getRole()",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "Physician",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "licenseNumber",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "specialty",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "conductConsultation(p : Patient)",
+              "type": "Consultation"
+            },
+            {
+              "kind": "method",
+              "name": "writeDiagnosticReport(p : Patient)",
+              "type": "DiagnosticReport"
+            },
+            {
+              "kind": "method",
+              "name": "recordHealthObservation(p : Patient, desc : String)",
+              "type": "HealthObservation"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "Nurse",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "shift",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "assistPhysician(p : Physician)",
+              "type": "void"
+            },
+            {
+              "kind": "method",
+              "name": "performVitalCheck(p : Patient)",
+              "type": "VitalCheck"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "Patient",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "patientId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "name",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "dob",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getPatientId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getName()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getDob()",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "MedicalRecord",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "recordId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "date",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getRecordId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getDate()",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "DepartmentReport",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "reportId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "department",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "date",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getReportId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getDepartment()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getDate()",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "HealthObservation",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "obsId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "description",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "timestamp",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getObsId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getDescription()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getTimestamp()",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "DiagnosticReport",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "reportId",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "findings",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getReportId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getFindings()",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "VitalCheck",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "checkId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "bloodPressure",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "heartRate",
+              "type": "int"
+            },
+            {
+              "kind": "attribute",
+              "name": "temperature",
+              "type": "double"
+            },
+            {
+              "kind": "method",
+              "name": "getCheckId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getBloodPressure()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getHeartRate()",
+              "type": "int"
+            },
+            {
+              "kind": "method",
+              "name": "getTemperature()",
+              "type": "double"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "Consultation",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "consultationId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "date",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "notes",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getConsultationId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getDate()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getNotes()",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "relationship",
+          "left": "Physician",
+          "right": "Consultation",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": "conducts >"
+        },
+        {
+          "name": "relationship",
+          "left": "Consultation",
+          "right": "Patient",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "1",
+          "arrow": "--",
+          "label": "for >"
+        },
+        {
+          "name": "relationship",
+          "left": "Physician",
+          "right": "DiagnosticReport",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": "writes >"
+        },
+        {
+          "name": "relationship",
+          "left": "DiagnosticReport",
+          "right": "Patient",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "1",
+          "arrow": "--",
+          "label": "for >"
+        },
+        {
+          "name": "relationship",
+          "left": "Physician",
+          "right": "HealthObservation",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": "records >"
+        },
+        {
+          "name": "relationship",
+          "left": "HealthObservation",
+          "right": "Patient",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "1",
+          "arrow": "--",
+          "label": "for >"
+        },
+        {
+          "name": "relationship",
+          "left": "Nurse",
+          "right": "Physician",
+          "leftMultiplicity": "0..*",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": "assists >"
+        },
+        {
+          "name": "relationship",
+          "left": "Nurse",
+          "right": "VitalCheck",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": "performs >"
+        },
+        {
+          "name": "relationship",
+          "left": "VitalCheck",
+          "right": "Patient",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "1",
+          "arrow": "--",
+          "label": "for >"
+        },
+        {
+          "name": "relationship",
+          "left": "HealthObservation",
+          "right": "MedicalRecord",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": "linked to >"
+        },
+        {
+          "name": "relationship",
+          "left": "MedicalRecord",
+          "right": "HealthObservation",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": "contains >"
+        },
+        {
+          "name": "relationship",
+          "left": "HealthObservation",
+          "right": "DepartmentReport",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": "linked to >"
+        },
+        {
+          "name": "relationship",
+          "left": "DepartmentReport",
+          "right": "HealthObservation",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": "includes >"
+        },
+        {
+          "name": "relationship",
+          "left": "Staff <",
+          "right": "Physician",
+          "leftMultiplicity": null,
+          "rightMultiplicity": null,
+          "arrow": "|--",
+          "label": null
+        },
+        {
+          "name": "relationship",
+          "left": "Staff <",
+          "right": "Nurse",
+          "leftMultiplicity": null,
+          "rightMultiplicity": null,
+          "arrow": "|--",
+          "label": null
+        }
+      ]
+    }
+  },
+  {
+    "model": "Gemini 1.5 Pro",
+    "snippet_id": "snippet_03",
+    "domain": "General",
+    "initial_errors": 8,
+    "loops_used": 0,
+    "post_loop_errors": 8,
+    "passed": 0,
+    "score_str": "0/8",
+    "accuracy_pct": "0.0%",
+    "status": "FAIL (API Error)",
+    "puml": "",
+    "parsed_ast": {}
+  },
+  {
+    "model": "Llama 3.3 70B (Groq)",
+    "snippet_id": "snippet_03",
+    "domain": "General",
+    "initial_errors": 0,
+    "loops_used": 0,
+    "post_loop_errors": 0,
+    "passed": 8,
+    "score_str": "8/8",
+    "accuracy_pct": "100.0%",
+    "status": "PASS",
+    "puml": "@startuml\nclass Customer {\n  - customerId : String\n  - name : String\n  + getCustomerId() : String\n  + getName() : String\n}\n\nclass Product {\n  - productId : String\n  - price : double\n  + getProductId() : String\n  + getPrice() : double\n}\n\nclass ShoppingCart {\n  - cartId : String\n  - items : List<OrderItem>\n  + calculateTotal() : double\n  + addItem(item : OrderItem) : void\n  + removeItem(item : OrderItem) : void\n}\n\nclass OrderItem {\n  - itemId : String\n  - quantity : int\n  - product : Product\n  + getItemId() : String\n  + getQuantity() : int\n  + getProduct() : Product\n}\n\nclass Order {\n  - orderId : String\n  - customer : Customer\n  - items : List<OrderItem>\n  - payment : Payment\n  + getOrderId() : String\n  + getCustomer() : Customer\n  + getItems() : List<OrderItem>\n  + getPayment() : Payment\n}\n\nclass Payment {\n  - paymentId : String\n  - amount : double\n  - status : String\n  + getPaymentId() : String\n  + getAmount() : double\n  + getStatus() : String\n}\n\nCustomer \"1\" -- \"0..*\" Order\nOrder \"1\" -- \"0..*\" OrderItem\nOrderItem \"1\" -- \"1\" Product\nShoppingCart \"1\" -- \"0..*\" OrderItem : contains\nOrder \"1\" -- \"1\" Payment\nCustomer \"1\" -- \"1\" ShoppingCart : owns\n\n@enduml",
+    "parsed_ast": {
+      "elements": [
+        {
+          "name": "class",
+          "title": "Customer",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "customerId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "name",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getCustomerId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getName()",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "Product",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "productId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "price",
+              "type": "double"
+            },
+            {
+              "kind": "method",
+              "name": "getProductId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getPrice()",
+              "type": "double"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "ShoppingCart",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "cartId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "items",
+              "type": "List<OrderItem>"
+            },
+            {
+              "kind": "method",
+              "name": "calculateTotal()",
+              "type": "double"
+            },
+            {
+              "kind": "method",
+              "name": "addItem(item : OrderItem)",
+              "type": "void"
+            },
+            {
+              "kind": "method",
+              "name": "removeItem(item : OrderItem)",
+              "type": "void"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "OrderItem",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "itemId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "quantity",
+              "type": "int"
+            },
+            {
+              "kind": "attribute",
+              "name": "product",
+              "type": "Product"
+            },
+            {
+              "kind": "method",
+              "name": "getItemId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getQuantity()",
+              "type": "int"
+            },
+            {
+              "kind": "method",
+              "name": "getProduct()",
+              "type": "Product"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "Order",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "orderId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "customer",
+              "type": "Customer"
+            },
+            {
+              "kind": "attribute",
+              "name": "items",
+              "type": "List<OrderItem>"
+            },
+            {
+              "kind": "method",
+              "name": "payment",
+              "type": "Payment"
+            },
+            {
+              "kind": "method",
+              "name": "getOrderId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getCustomer()",
+              "type": "Customer"
+            },
+            {
+              "kind": "method",
+              "name": "getItems()",
+              "type": "List<OrderItem>"
+            },
+            {
+              "kind": "method",
+              "name": "getPayment()",
+              "type": "Payment"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "Payment",
+          "members": [
+            {
+              "kind": "method",
+              "name": "paymentId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "amount",
+              "type": "double"
+            },
+            {
+              "kind": "attribute",
+              "name": "status",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getPaymentId()",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getAmount()",
+              "type": "double"
+            },
+            {
+              "kind": "method",
+              "name": "getStatus()",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "relationship",
+          "left": "Customer",
+          "right": "Order",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": null
+        },
+        {
+          "name": "relationship",
+          "left": "Order",
+          "right": "OrderItem",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": null
+        },
+        {
+          "name": "relationship",
+          "left": "OrderItem",
+          "right": "Product",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "1",
+          "arrow": "--",
+          "label": null
+        },
+        {
+          "name": "relationship",
+          "left": "ShoppingCart",
+          "right": "OrderItem",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": "contains"
+        },
+        {
+          "name": "relationship",
+          "left": "Order",
+          "right": "Payment",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "1",
+          "arrow": "--",
+          "label": null
+        },
+        {
+          "name": "relationship",
+          "left": "Customer",
+          "right": "ShoppingCart",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "1",
+          "arrow": "--",
+          "label": "owns"
+        }
+      ]
+    }
+  },
+  {
+    "model": "Nemotron 120B (OpenRouter)",
+    "snippet_id": "snippet_03",
+    "domain": "General",
+    "initial_errors": 8,
+    "loops_used": 0,
+    "post_loop_errors": 8,
+    "passed": 0,
+    "score_str": "0/8",
+    "accuracy_pct": "0.0%",
+    "status": "FAIL (API Error)",
+    "puml": "",
+    "parsed_ast": {}
+  },
+  {
+    "model": "Gemini 1.5 Pro",
+    "snippet_id": "snippet_04",
+    "domain": "General",
+    "initial_errors": 8,
+    "loops_used": 0,
+    "post_loop_errors": 8,
+    "passed": 0,
+    "score_str": "0/8",
+    "accuracy_pct": "0.0%",
+    "status": "FAIL (API Error)",
+    "puml": "",
+    "parsed_ast": {}
+  },
+  {
+    "model": "Llama 3.3 70B (Groq)",
+    "snippet_id": "snippet_04",
+    "domain": "General",
+    "initial_errors": 0,
+    "loops_used": 0,
+    "post_loop_errors": 0,
+    "passed": 8,
+    "score_str": "8/8",
+    "accuracy_pct": "100.0%",
+    "status": "PASS",
+    "puml": "@startuml\nclass Warehouse {\n  - id: Integer\n  - location: String\n  - capacity: Integer\n  + getAvailableSpace() : Integer\n  + receiveShipment(shipment: Shipment) : void\n}\n\nclass Supplier {\n  - id: Integer\n  - name: String\n  - address: String\n  + getShipments() : List[Shipment]\n  + addShipment(shipment: Shipment) : void\n}\n\nclass StockItem {\n  - id: Integer\n  - description: String\n  - quantity: Integer\n  - threshold: Integer\n  + getQuantity() : Integer\n  + restock(quantity: Integer) : void\n}\n\nclass Shipment {\n  - id: Integer\n  - deliveryDate: Date\n  - trackingNumber: String\n  + getDeliveryDate() : Date\n  + getTrackingNumber() : String\n}\n\nclass WarehouseManager {\n  - id: Integer\n  - name: String\n  + initiateRestockOrder(stockItem: StockItem) : void\n  + monitorWarehouse(warehouse: Warehouse) : void\n}\n\nclass RestockOrder {\n  - id: Integer\n  - stockItem: StockItem\n  - quantity: Integer\n  + getStockItem() : StockItem\n  + getQuantity() : Integer\n}\n\nWarehouse \"1\" -- \"0..*\" StockItem\nStockItem \"0..*\" -- \"0..*\" Warehouse : stored in >\nSupplier \"1\" -- \"0..*\" Shipment\nShipment \"0..*\" -- \"0..1\" Warehouse : delivered to >\nWarehouseManager \"1\" -- \"0..*\" Warehouse : manages >\nWarehouseManager \"1\" -- \"0..*\" RestockOrder : initiates >\nStockItem \"1\" -- \"0..*\" RestockOrder : subject of >\nSupplier \"1\" -- \"0..*\" RestockOrder : fulfills >\nWarehouse \"1\" -- \"0..*\" Shipment : receives >\n@enduml",
+    "parsed_ast": {
+      "elements": [
+        {
+          "name": "class",
+          "title": "Warehouse",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "id",
+              "type": "Integer"
+            },
+            {
+              "kind": "attribute",
+              "name": "location",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "capacity",
+              "type": "Integer"
+            },
+            {
+              "kind": "method",
+              "name": "getAvailableSpace()",
+              "type": "Integer"
+            },
+            {
+              "kind": "method",
+              "name": "receiveShipment(shipment: Shipment)",
+              "type": "void"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "Supplier",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "id",
+              "type": "Integer"
+            },
+            {
+              "kind": "attribute",
+              "name": "name",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "address",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getShipments()",
+              "type": "List[Shipment]"
+            },
+            {
+              "kind": "method",
+              "name": "addShipment(shipment: Shipment)",
+              "type": "void"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "StockItem",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "id",
+              "type": "Integer"
+            },
+            {
+              "kind": "attribute",
+              "name": "description",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "quantity",
+              "type": "Integer"
+            },
+            {
+              "kind": "attribute",
+              "name": "threshold",
+              "type": "Integer"
+            },
+            {
+              "kind": "method",
+              "name": "getQuantity()",
+              "type": "Integer"
+            },
+            {
+              "kind": "method",
+              "name": "restock(quantity: Integer)",
+              "type": "void"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "Shipment",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "id",
+              "type": "Integer"
+            },
+            {
+              "kind": "attribute",
+              "name": "deliveryDate",
+              "type": "Date"
+            },
+            {
+              "kind": "method",
+              "name": "trackingNumber",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "getDeliveryDate()",
+              "type": "Date"
+            },
+            {
+              "kind": "method",
+              "name": "getTrackingNumber()",
+              "type": "String"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "WarehouseManager",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "id",
+              "type": "Integer"
+            },
+            {
+              "kind": "attribute",
+              "name": "name",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "initiateRestockOrder(stockItem: StockItem)",
+              "type": "void"
+            },
+            {
+              "kind": "method",
+              "name": "monitorWarehouse(warehouse: Warehouse)",
+              "type": "void"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "RestockOrder",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "id",
+              "type": "Integer"
+            },
+            {
+              "kind": "attribute",
+              "name": "stockItem",
+              "type": "StockItem"
+            },
+            {
+              "kind": "attribute",
+              "name": "quantity",
+              "type": "Integer"
+            },
+            {
+              "kind": "method",
+              "name": "getStockItem()",
+              "type": "StockItem"
+            },
+            {
+              "kind": "method",
+              "name": "getQuantity()",
+              "type": "Integer"
+            }
+          ]
+        },
+        {
+          "name": "relationship",
+          "left": "Warehouse",
+          "right": "StockItem",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": null
+        },
+        {
+          "name": "relationship",
+          "left": "StockItem",
+          "right": "Warehouse",
+          "leftMultiplicity": "0..*",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": "stored in >"
+        },
+        {
+          "name": "relationship",
+          "left": "Supplier",
+          "right": "Shipment",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": null
+        },
+        {
+          "name": "relationship",
+          "left": "Shipment",
+          "right": "Warehouse",
+          "leftMultiplicity": "0..*",
+          "rightMultiplicity": "0..1",
+          "arrow": "--",
+          "label": "delivered to >"
+        },
+        {
+          "name": "relationship",
+          "left": "WarehouseManager",
+          "right": "Warehouse",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": "manages >"
+        },
+        {
+          "name": "relationship",
+          "left": "WarehouseManager",
+          "right": "RestockOrder",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": "initiates >"
+        },
+        {
+          "name": "relationship",
+          "left": "StockItem",
+          "right": "RestockOrder",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": "subject of >"
+        },
+        {
+          "name": "relationship",
+          "left": "Supplier",
+          "right": "RestockOrder",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": "fulfills >"
+        },
+        {
+          "name": "relationship",
+          "left": "Warehouse",
+          "right": "Shipment",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": "receives >"
+        }
+      ]
+    }
+  },
+  {
+    "model": "Nemotron 120B (OpenRouter)",
+    "snippet_id": "snippet_04",
+    "domain": "General",
+    "initial_errors": 8,
+    "loops_used": 0,
+    "post_loop_errors": 8,
+    "passed": 0,
+    "score_str": "0/8",
+    "accuracy_pct": "0.0%",
+    "status": "FAIL (API Error)",
+    "puml": "",
+    "parsed_ast": {}
+  },
+  {
+    "model": "Gemini 1.5 Pro",
+    "snippet_id": "snippet_05",
+    "domain": "General",
+    "initial_errors": 8,
+    "loops_used": 0,
+    "post_loop_errors": 8,
+    "passed": 0,
+    "score_str": "0/8",
+    "accuracy_pct": "0.0%",
+    "status": "FAIL (API Error)",
+    "puml": "",
+    "parsed_ast": {}
+  },
+  {
+    "model": "Llama 3.3 70B (Groq)",
+    "snippet_id": "snippet_05",
+    "domain": "General",
+    "initial_errors": 0,
+    "loops_used": 0,
+    "post_loop_errors": 0,
+    "passed": 8,
+    "score_str": "8/8",
+    "accuracy_pct": "100.0%",
+    "status": "PASS",
+    "puml": "@startuml\nclass BookTitle {\n  - title: String\n  - author: String\n  - publicationYear: Integer\n  + getPrerequisites() : List<BookTitle>\n  + getRecommendations() : List<BookTitle>\n}\n\nclass BookCopy {\n  - copyId: String\n  - status: String\n  + isAvailable() : boolean\n}\n\nclass LibraryMember {\n  - memberId: String\n  - name: String\n  - email: String\n  + borrowBook(copy: BookCopy) : void\n  + returnBook(copy: BookCopy) : void\n}\n\nclass Loan {\n  - loanId: String\n  - borrowDate: Date\n  - dueDate: Date\n  + extendLoan(days: Integer) : void\n  + calculateFine() : double\n}\n\nclass Librarian {\n  - librarianId: String\n  - name: String\n  + approveLoanExtension(loan: Loan) : void\n  + calculateOverdueFine(loan: Loan) : double\n}\n\nBookTitle \"1\" -- \"0..*\" BookTitle : prerequisite\nBookTitle \"1\" -- \"0..*\" BookTitle : recommendation\nBookTitle \"1\" -- \"0..*\" BookCopy : hasCopy\nBookCopy \"0..*\" -- \"1\" BookTitle : belongsTo\nLibraryMember \"1\" -- \"0..*\" Loan : hasLoan\nLoan \"1\" -- \"1\" BookCopy : forCopy\nLoan \"1\" -- \"1\" LibraryMember : forMember\nLibrarian \"1\" -- \"0..*\" Loan : manages\nLibraryMember \"1\" -- \"0..*\" BookCopy : borrowed\n@enduml",
+    "parsed_ast": {
+      "elements": [
+        {
+          "name": "class",
+          "title": "BookTitle",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "title",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "author",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "publicationYear",
+              "type": "Integer"
+            },
+            {
+              "kind": "method",
+              "name": "getPrerequisites()",
+              "type": "List<BookTitle>"
+            },
+            {
+              "kind": "method",
+              "name": "getRecommendations()",
+              "type": "List<BookTitle>"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "BookCopy",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "copyId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "status",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "isAvailable()",
+              "type": "boolean"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "LibraryMember",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "memberId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "name",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "email",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "borrowBook(copy: BookCopy)",
+              "type": "void"
+            },
+            {
+              "kind": "method",
+              "name": "returnBook(copy: BookCopy)",
+              "type": "void"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "Loan",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "loanId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "borrowDate",
+              "type": "Date"
+            },
+            {
+              "kind": "attribute",
+              "name": "dueDate",
+              "type": "Date"
+            },
+            {
+              "kind": "method",
+              "name": "extendLoan(days: Integer)",
+              "type": "void"
+            },
+            {
+              "kind": "method",
+              "name": "calculateFine()",
+              "type": "double"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "Librarian",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "librarianId",
+              "type": "String"
+            },
+            {
+              "kind": "attribute",
+              "name": "name",
+              "type": "String"
+            },
+            {
+              "kind": "method",
+              "name": "approveLoanExtension(loan: Loan)",
+              "type": "void"
+            },
+            {
+              "kind": "method",
+              "name": "calculateOverdueFine(loan: Loan)",
+              "type": "double"
+            }
+          ]
+        },
+        {
+          "name": "relationship",
+          "left": "BookTitle",
+          "right": "BookTitle",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": "prerequisite"
+        },
+        {
+          "name": "relationship",
+          "left": "BookTitle",
+          "right": "BookTitle",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": "recommendation"
+        },
+        {
+          "name": "relationship",
+          "left": "BookTitle",
+          "right": "BookCopy",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": "hasCopy"
+        },
+        {
+          "name": "relationship",
+          "left": "BookCopy",
+          "right": "BookTitle",
+          "leftMultiplicity": "0..*",
+          "rightMultiplicity": "1",
+          "arrow": "--",
+          "label": "belongsTo"
+        },
+        {
+          "name": "relationship",
+          "left": "LibraryMember",
+          "right": "Loan",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": "hasLoan"
+        },
+        {
+          "name": "relationship",
+          "left": "Loan",
+          "right": "BookCopy",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "1",
+          "arrow": "--",
+          "label": "forCopy"
+        },
+        {
+          "name": "relationship",
+          "left": "Loan",
+          "right": "LibraryMember",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "1",
+          "arrow": "--",
+          "label": "forMember"
+        },
+        {
+          "name": "relationship",
+          "left": "Librarian",
+          "right": "Loan",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": "manages"
+        },
+        {
+          "name": "relationship",
+          "left": "LibraryMember",
+          "right": "BookCopy",
+          "leftMultiplicity": "1",
+          "rightMultiplicity": "0..*",
+          "arrow": "--",
+          "label": "borrowed"
+        }
+      ]
+    }
+  },
+  {
+    "model": "Nemotron 120B (OpenRouter)",
+    "snippet_id": "snippet_05",
+    "domain": "General",
+    "initial_errors": 8,
+    "loops_used": 0,
+    "post_loop_errors": 8,
+    "passed": 0,
+    "score_str": "0/8",
+    "accuracy_pct": "0.0%",
+    "status": "FAIL (API Error)",
+    "puml": "",
+    "parsed_ast": {}
+  },
+  {
+    "model": "Gemini 1.5 Pro",
+    "snippet_id": "snippet_06",
+    "domain": "General",
+    "initial_errors": 8,
+    "loops_used": 0,
+    "post_loop_errors": 8,
+    "passed": 0,
+    "score_str": "0/8",
+    "accuracy_pct": "0.0%",
+    "status": "FAIL (API Error)",
+    "puml": "",
+    "parsed_ast": {}
+  },
+  {
+    "model": "Llama 3.3 70B (Groq)",
+    "snippet_id": "snippet_06",
+    "domain": "General",
+    "initial_errors": 1,
+    "loops_used": 1,
+    "post_loop_errors": 14,
+    "passed": 4,
+    "score_str": "4/8",
+    "accuracy_pct": "50.0%",
+    "status": "FAIL",
+    "puml": "@startuml\nclass MediaItem {\n  title: String\n  publisher: String\n  availabilityState: Boolean\n  reserve(): void\n  stream(): void\n  renewLoan(): void\n}\n\nclass Patron {\n  id: Integer\n  name: String\n  email: String\n  renewLoan(mediaItem: MediaItem): void\n  streamMedia(mediaItem: MediaItem): void\n  payLateFees(): void\n}\n\nclass Payment {\n  amount: Float\n  paymentDate: Date\n  processPayment(): void\n}\n\nclass SystemAdministrator {\n  id: Integer\n  name: String\n  maintainPatronAccount(patron: Patron): void\n  updateMediaCatalog(mediaItem: MediaItem): void\n}\n\nMediaItem *--1..* Patron : reservedBy\nPatron *--1..* Payment : makes\nSystemAdministrator *--1..* Patron : maintains\nSystemAdministrator *--1..* MediaItem : updates\nPatron 1--* MediaItem : streams\n@enduml",
+    "parsed_ast": {
+      "elements": [
+        {
+          "name": "class",
+          "title": "MediaItem",
+          "members": [
+            {
+              "kind": "method",
+              "name": "reserve()",
+              "type": "void"
+            },
+            {
+              "kind": "method",
+              "name": "stream()",
+              "type": "void"
+            },
+            {
+              "kind": "method",
+              "name": "renewLoan()",
+              "type": "void"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "title",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "String",
+              "type": null
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "publisher",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "String",
+              "type": null
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "availabilityState",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "Boolean",
+              "type": null
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "Patron",
+          "members": [
+            {
+              "kind": "method",
+              "name": "renewLoan(mediaItem: MediaItem)",
+              "type": "void"
+            },
+            {
+              "kind": "method",
+              "name": "streamMedia(mediaItem: MediaItem)",
+              "type": "void"
+            },
+            {
+              "kind": "method",
+              "name": "payLateFees()",
+              "type": "void"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "id",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "Integer",
+              "type": null
+            },
+            {
+              "kind": "attribute",
+              "name": "Integer",
+              "type": null
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "name",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "String",
+              "type": null
+            },
+            {
+              "kind": "attribute",
+              "name": "String",
+              "type": null
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "email",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "String",
+              "type": null
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "Payment",
+          "members": [
+            {
+              "kind": "method",
+              "name": "processPayment()",
+              "type": "void"
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "amount",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "Float",
+              "type": null
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "paymentDate",
+          "members": [
+            {
+              "kind": "attribute",
+              "name": "Date",
+              "type": null
+            }
+          ]
+        },
+        {
+          "name": "class",
+          "title": "SystemAdministrator",
+          "members": [
+            {
+              "kind": "method",
+              "name": "maintainPatronAccount(patron: Patron)",
+              "type": "void"
+            },
+            {
+              "kind": "method",
+              "name": "updateMediaCatalog(mediaItem: MediaItem)",
+              "type": "void"
+            }
+          ]
+        },
+        {
+          "name": "relationship",
+          "left": "Patron 1",
+          "right": "MediaItem",
+          "leftMultiplicity": null,
+          "rightMultiplicity": null,
+          "arrow": "--*",
+          "label": "streams"
+        }
+      ]
+    }
+  },
+  {
+    "model": "Nemotron 120B (OpenRouter)",
+    "snippet_id": "snippet_06",
+    "domain": "General",
+    "initial_errors": 8,
+    "loops_used": 0,
+    "post_loop_errors": 8,
+    "passed": 0,
+    "score_str": "0/8",
+    "accuracy_pct": "0.0%",
+    "status": "FAIL (API Error)",
+    "puml": "",
+    "parsed_ast": {}
+  }
+]
