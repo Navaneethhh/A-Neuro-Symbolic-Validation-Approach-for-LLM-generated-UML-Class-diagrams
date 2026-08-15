@@ -26,13 +26,15 @@ Large Language Models often produce structurally invalid UML diagrams[cite: 3]. 
 
 ---
 
-## Project Structure
+## Repository Structure
 
 ```text
-├── data/              # 15 requirement specifications across 3 domains[cite: 3]
-├── parser/            # PlantUML to AST extraction scripts[cite: 3]
-├── ocl_engine/        # Python-based deterministic OCL rule verifier[cite: 3]
-├── repair/            # Closed-loop diagnostic repair logic[cite: 3]
-├── arbitrator/        # Structural Richness ranking module[cite: 3]
-├── main.py            # End-to-end execution pipeline
-└── requirements.txt   # Dependencies
+├── nl-snippets.txt          # Benchmark NL requirement specifications (15 snippets across 3 domains)
+├── parse_puml.py            # PlantUML parser to extract AST and structural primitives
+├── ocl_checker.py           # Deterministic Python verifier for OCL constraints (C1–C8)
+├── experiment_loop.py       # Closed-loop generation, verification, and self-repair pipeline
+├── select_best_diagrams.py  # Multi-model arbitrator based on Structural Richness (SR)
+├── project0.py              # Main execution script / orchestration
+├── experiment_results.json  # Comprehensive benchmark metrics, evaluations, and OSR logs
+├── experiment_output.puml   # Raw and repaired PlantUML generation outputs
+└── best_15_results.puml     # Selected canonical domain diagrams
