@@ -1,526 +1,2631 @@
-/' Snippet: snippet_01 | Model: Llama 3.3 70B (Groq) | Status: PASS (8/8) '/
+/'' Snippet: snippet_01 | Domain: Library Management | Model: Gemini 3.5 Flash | Status: PASS (8/8) ''/
 @startuml
-class Patient {
-  - fullName : String
-  - contact : String
-  - medicalSummary : String
-  + getFullName() : String
-  + getContact() : String
-  + getMedicalSummary() : String
+skinparam classAttributeIconSize 0
+
+enum BookStatus {
+  AVAILABLE
+  LOANED
+  RESERVED
+  LOST
 }
 
-class Doctor {
-  - doctorId : String
-  - specialty : String
-  + getDoctorId() : String
-  + getSpecialty() : String
-}
-
-class Appointment {
-  - appointmentId : String
-  - date : Date
-  - time : Time
-  - status : String
-  + getAppointmentId() : String
-  + getDate() : Date
-  + getTime() : Time
-  + getStatus() : String
-}
-
-class Prescription {
-  - prescriptionId : String
-  - medication : String
-  - dosage : String
-  + getPrescriptionId() : String
-  + getMedication() : String
-  + getDosage() : String
-}
-
-class BillingRecord {
-  - billingId : String
-  - totalCost : double
-  + getBillingId() : String
-  + calculateTotal() : double
-}
-
-Patient "1" -- "0..*" Appointment
-Doctor "1" -- "0..*" Appointment
-Appointment "1" -- "0..*" Prescription
-Appointment "1" -- "1" BillingRecord
-Doctor "1" -- "0..*" Prescription
-
-class MedicalAppointmentSystem {
-  + assignDoctorToAppointment(appointment: Appointment, doctor: Doctor) : boolean
-  + scheduleAppointment(patient: Patient, doctor: Doctor, date: Date, time: Time) : Appointment
-}
-
-MedicalAppointmentSystem "1" -- "0..*" Patient
-MedicalAppointmentSystem "1" -- "0..*" Doctor
-MedicalAppointmentSystem "1" -- "0..*" Appointment
-
-@enduml
-
-/' Snippet: snippet_01 | Model: Nemotron 120B (OpenRouter) | Status: PASS (8/8) '/
-@startuml
-class Patient {
-    - patientId : String
-    - fullName : String
-    - contact : String
-    - medicalSummary : String
-    + getPatientId() : String
-    + getFullName() : String
-    + setFullName(name:String) : void
-}
-class Doctor {
-    - doctorId : String
-    - fullName : String
-    - specialty : String
-    + getDoctorId() : String
-    + getSpecialty() : String
-}
-class Appointment {
-    - appointmentId : String
-    - date : java.time.LocalDate
-    - time : java.time.LocalTime
-    - status : String
-    + getAppointmentId() : String
-    + setStatus(s:String) : void
-}
-class Prescription {
-    - prescriptionId : String
-    - medicationName : String
-    - dosage : String
-    + getPrescriptionId() : String
-    + getDosage() : String
-}
-class BillingRecord {
-    - recordId : String
-    - totalCost : double
-    + getRecordId() : String
-    + getTotalCost() : double
-}
-Patient "0..*" -- "1" Appointment
-Doctor "0..*" -- "1" Appointment
-Appointment "1" -- "1" BillingRecord
-Doctor "0..*" -- "1" Prescription
-@enduml
-
-/' Snippet: snippet_02 | Model: Llama 3.3 70B (Groq) | Status: PASS (8/8) '/
-@startuml
-class Staff {
-  - staffId: String
-  - name: String
-  + getStaffId() : String
-  + getName() : String
-}
-
-class Physician {
-  - physicianId: String
-  - specialization: String
-  + getPhysicianId() : String
-  + getSpecialization() : String
-}
-
-class Nurse {
-  - nurseId: String
-  - qualification: String
-  + getNurseId() : String
-  + getQualification() : String
-}
-
-class Patient {
-  - patientId: String
-  - medicalHistory: String
-  + getPatientId() : String
-  + getMedicalHistory() : String
-}
-
-class MedicalRecord {
-  - recordId: String
-  - patientId: String
-  - healthObservations: String
-  + getRecordId() : String
-  + getPatientId() : String
-  + getHealthObservations() : String
-}
-
-class DepartmentReport {
-  - reportId: String
-  - departmentName: String
-  - healthObservations: String
-  + getReportId() : String
-  + getDepartmentName() : String
-  + getHealthObservations() : String
-}
-
-class Consultation {
-  - consultationId: String
-  - patientId: String
-  - physicianId: String
-  + getConsultationId() : String
-  + getPatientId() : String
-  + getPhysicianId() : String
-}
-
-class DiagnosticReport {
-  - reportId: String
-  - patientId: String
-  - physicianId: String
-  + getReportId() : String
-  + getPatientId() : String
-  + getPhysicianId() : String
-}
-
-class HealthObservation {
-  - observationId: String
-  - patientId: String
-  - observation: String
-  + getObservationId() : String
-  + getPatientId() : String
-  + getObservation() : String
-}
-
-class VitalCheck {
-  - checkId: String
-  - patientId: String
-  - nurseId: String
-  + getCheckId() : String
-  + getPatientId() : String
-  + getNurseId() : String
-}
-
-Staff "1" -- "0..*" Physician
-Staff "1" -- "0..*" Nurse
-Physician "1" -- "0..*" Consultation
-Physician "1" -- "0..*" DiagnosticReport
-Physician "1" -- "0..*" HealthObservation
-Nurse "1" -- "0..*" VitalCheck
-Nurse "1" -- "1" Physician
-Patient "1" -- "0..*" MedicalRecord
-Patient "1" -- "0..*" Consultation
-MedicalRecord "1" -- "0..*" HealthObservation
-DepartmentReport "1" -- "0..*" HealthObservation
-@enduml
-
-/' Snippet: snippet_02 | Model: Nemotron 120B (OpenRouter) | Status: FAIL (6/8) '/
-@startuml
-abstract class Staff {
-    - staffId : String
-    - name : String
-    - role : String
-    + getStaffId() : String
-    + getName() : String
-    + getRole() : String
-}
-
-class Physician {
-    - licenseNumber : String
-    - specialty : String
-    + conductConsultation(p : Patient) : Consultation
-    + writeDiagnosticReport(p : Patient) : DiagnosticReport
-    + recordHealthObservation(p : Patient, desc : String) : HealthObservation
-}
-
-class Nurse {
-    - shift : String
-    + assistPhysician(p : Physician) : void
-    + performVitalCheck(p : Patient) : VitalCheck
-}
-
-class Patient {
-    - patientId : String
-    - name : String
-    - dob : String
-    + getPatientId() : String
-    + getName() : String
-    + getDob() : String
-}
-
-class MedicalRecord {
-    - recordId : String
-    - date : String
-    + getRecordId() : String
-    + getDate() : String
-}
-
-class DepartmentReport {
-    - reportId : String
-    - department : String
-    - date : String
-    + getReportId() : String
-    + getDepartment() : String
-    + getDate() : String
-}
-
-class HealthObservation {
-    - obsId : String
-    - description : String
-    - timestamp : String
-    + getObsId() : String
-    + getDescription() : String
-    + getTimestamp() : String
-}
-
-class DiagnosticReport {
-    - reportId : String
-    - findings : String
-    + getReportId() : String
-    + getFindings() : String
-}
-
-class VitalCheck {
-    - checkId : String
-    - bloodPressure : String
-    - heartRate : int
-    - temperature : double
-    + getCheckId() : String
-    + getBloodPressure() : String
-    + getHeartRate() : int
-    + getTemperature() : double
-}
-
-class Consultation {
-    - consultationId : String
-    - date : String
-    - notes : String
-    + getConsultationId() : String
-    + getDate() : String
-    + getNotes() : String
-}
-
-Physician "1" -- "0..*" Consultation : conducts >
-Consultation "1" -- "1" Patient : for >
-
-Physician "1" -- "0..*" DiagnosticReport : writes >
-DiagnosticReport "1" -- "1" Patient : for >
-
-Physician "1" -- "0..*" HealthObservation : records >
-HealthObservation "1" -- "1" Patient : for >
-
-Nurse "0..*" -- "0..*" Physician : assists >
-Nurse "1" -- "0..*" VitalCheck : performs >
-VitalCheck "1" -- "1" Patient : for >
-
-HealthObservation "1" -- "0..*" MedicalRecord : linked to >
-MedicalRecord "1" -- "0..*" HealthObservation : contains >
-
-HealthObservation "1" -- "0..*" DepartmentReport : linked to >
-DepartmentReport "1" -- "0..*" HealthObservation : includes >
-
-Staff <|-- Physician
-Staff <|-- Nurse
-@enduml
-
-/' Snippet: snippet_03 | Model: Llama 3.3 70B (Groq) | Status: PASS (8/8) '/
-@startuml
-class Customer {
-  - customerId : String
+class Library {
   - name : String
-  + getCustomerId() : String
-  + getName() : String
+  - address : String
+  + registerPatron(patron : Patron) : boolean
+  + addBook(book : Book) : boolean
 }
 
-class Product {
-  - productId : String
-  - price : double
-  + getProductId() : String
-  + getPrice() : double
+class Book {
+  - title : String
+  - isbn : String
+  - publicationYear : int
+  + getTitle() : String
+  + getIsbn() : String
 }
 
-class ShoppingCart {
-  - cartId : String
-  - items : List<OrderItem>
-  + calculateTotal() : double
-  + addItem(item : OrderItem) : void
-  + removeItem(item : OrderItem) : void
+class BookItem {
+  - barcodeId : String
+  - status : BookStatus
+  + updateStatus(status : BookStatus) : void
+  + getBarcode() : String
 }
 
-class OrderItem {
-  - itemId : String
-  - quantity : int
-  - product : Product
-  + getItemId() : String
-  + getQuantity() : int
-  + getProduct() : Product
+class Patron {
+  - memberId : String
+  - name : String
+  - membershipDate : Date
+  + canBorrow() : boolean
+  + getMemberId() : String
 }
 
-class Order {
-  - orderId : String
-  - customer : Customer
-  - items : List<OrderItem>
-  - payment : Payment
-  + getOrderId() : String
-  + getCustomer() : Customer
-  + getItems() : List<OrderItem>
-  + getPayment() : Payment
+class Loan {
+  - checkoutDate : Date
+  - dueDate : Date
+  - returnDate : Date
+  + markAsReturned() : void
+  + isOverdue() : boolean
+}
+
+class Librarian {
+  - employeeId : String
+  - name : String
+  + processLoan(patron : Patron, item : BookItem) : Loan
+  + returnLoan(loan : Loan) : boolean
+  + manageInventory(book : Book) : void
+}
+
+Library "1" -- "0..*" Patron
+Library "1" -- "0..*" Librarian
+Library "1" -- "0..*" Book
+Book "1" *-- "1..*" BookItem
+Patron "1" -- "0..5" Loan
+BookItem "1" -- "0..1" Loan
+Librarian "1" -- "0..*" Loan
+Librarian "1..*" -- "0..*" Book
+
+@enduml
+
+/'' Snippet: snippet_01 | Domain: Library Management | Model: Llama 3.3 70B (Groq) | Status: PASS (8/8) ''/
+@startuml
+class Library {
+  - bookItems : BookItem*
+  - patrons : Patron*
+  - librarians : Librarian*
+  + manageBookInventory() : void
+  + processLoans() : void
+}
+
+class Book {
+  - title : String
+  - isbn : String
+  - publicationYear : int
+  - bookItems : BookItem*
+  + getBookItems() : BookItem*
+  + addBookItem(bookItem : BookItem) : void
+}
+
+class BookItem {
+  - barcodeId : String
+  - status : String
+  - book : Book
+  - loans : Loan*
+  + getLoanHistory() : Loan*
+  + updateStatus(status : String) : void
+}
+
+class Patron {
+  - memberId : String
+  - name : String
+  - membershipDate : Date
+  - loans : Loan*
+  + borrowBookItem(bookItem : BookItem) : Loan
+  + returnBookItem(bookItem : BookItem) : void
+}
+
+class Loan {
+  - checkoutDate : Date
+  - dueDate : Date
+  - returnDate : Date
+  - bookItem : BookItem
+  - patron : Patron
+  + getFine() : double
+  + updateReturnDate(returnDate : Date) : void
+}
+
+class Librarian {
+  - librarianId : String
+  - name : String
+  - library : Library
+  + processLoan(loan : Loan) : void
+  + manageBookInventory() : void
+}
+
+Library "1" -- "0..*" BookItem
+Book "1" -- "0..*" BookItem : contains
+BookItem "0..*" -- "1" Book : partOf
+Patron "1" -- "0..5" Loan : borrows
+Loan "1" -- "1" BookItem : references
+Loan "1" -- "1" Patron : associatedWith
+Librarian "1" -- "1" Library : manages
+Library "1" -- "0..*" Patron : registers
+Library "1" -- "0..*" Librarian : employs
+@enduml
+
+/'' Snippet: snippet_01 | Domain: Library Management | Model: Nemotron 120B (OpenRouter) | Status: PASS (8/8) ''/
+@startuml
+class Library {
+    - name : String
+    + addBook(b:Book) : void
+    + registerPatron(p:Patron) : void
+}
+class Book {
+    - title : String
+    - isbn : String
+    - publicationYear : int
+    + getTitle() : String
+    + setTitle(t:String) : void
+    + getIsbn() : String
+    + setIsbn(i:String) : void
+    + getPublicationYear() : int
+    + setPublicationYear(y:int) : void
+}
+class BookItem {
+    - barcodeID : String
+    - status : String
+    + getBarcodeID() : String
+    + setBarcodeID(b:String) : void
+    + getStatus() : String
+    + setStatus(s:String) : void
+    + checkout() : boolean
+    + returnItem() : void
+}
+class Patron {
+    - memberID : String
+    - name : String
+    - membershipDate : Date
+    + getMemberID() : String
+    + setMemberID(m:String) : void
+    + getName() : String
+    + setName(n:String) : void
+    + getMembershipDate() : Date
+    + setMembershipDate(d:Date) : void
+    + canBorrowMore() : boolean
+}
+class Loan {
+    - checkoutDate : Date
+    - dueDate : Date
+    - returnDate : Date
+    + getCheckoutDate() : Date
+    + setCheckoutDate(d:Date) : void
+    + getDueDate() : Date
+    + setDueDate(d:Date) : void
+    + getReturnDate() : Date
+    + setReturnDate(d:Date) : void
+    + isOverdue() : boolean
+}
+class Librarian {
+    - employeeID : String
+    - name : String
+    + getEmployeeID() : String
+    + setEmployeeID(e:String) : void
+    + getName() : String
+    + setName(n:String) : void
+    + processLoan(p:Patron, i:BookItem) : Loan
+    + addBookItem(i:BookItem) : void
+    + removeBookItem(i:BookItem) : void
+}
+
+Library "1" -- "0..*" BookItem : manages >
+Library "1" -- "0..*" Patron : registers >
+Book "1" -- "0..*" BookItem : contains >
+Patron "1" -- "0..*" Loan : makes >
+BookItem "0..*" -- "0..*" Loan : involved in >
+Librarian "0..*" -- "0..*" Loan : processes >
+Librarian "0..*" -- "0..*" BookItem : manages >
+@enduml
+
+/'' Snippet: snippet_02 | Domain: Library Management | Model: Gemini 3.5 Flash | Status: PASS (8/8) ''/
+@startuml
+
+class Patron {
+  + patronId : String
+  + name : String
+  + email : String
+}
+
+class Student extends Patron {
+  + studentId : String
+  + major : String
+}
+
+class Faculty extends Patron {
+  + facultyId : String
+  + department : String
+}
+
+class LibraryResource {
+  + resourceId : String
+  + title : String
+  + isAvailable : Boolean
+}
+
+class DigitalResource extends LibraryResource {
+  + licenseExpiry : String
+  + fileSize : Integer
+  + download() : void
+}
+
+class PhysicalCopy extends LibraryResource {
+  + barcode : String
+  + shelfLocation : String
+}
+
+class Reservation {
+  + reservationId : String
+  + reservationDate : String
+  + priorityStatus : String
+  + status : String
+  + expireIfUnfulfilled() : void
+}
+
+class NotificationLog {
+  + logId : String
+  + recipientEmail : String
+  + message : String
+  + sentDateTime : String
+  + sendNotification() : void
+}
+
+Patron "1" -- "0..*" Reservation : places
+LibraryResource "1" -- "0..*" Reservation : requests
+Reservation "1" -- "0..*" NotificationLog : triggers
+
+@enduml
+
+/'' Snippet: snippet_02 | Domain: Library Management | Model: Llama 3.3 70B (Groq) | Status: PASS (8/8) ''/
+@startuml
+class DigitalResource {
+  - resourceId: String
+  - title: String
+  - licenseExpiry: Date
+  - fileSize: Integer
+  + getAvailability() : Boolean
+  + reserve(patron: Patron) : Reservation
+}
+
+class Reservation {
+  - reservationDate: Date
+  - priorityStatus: String
+  + getPriorityStatus() : String
+  + expire() : void
+}
+
+class Patron {
+  - patronId: String
+  - name: String
+  + reserveResource(resource: DigitalResource) : Reservation
+}
+
+class Student extends Patron {
+  - studentId: String
+  - major: String
+}
+
+class Faculty extends Patron {
+  - facultyId: String
+  - department: String
+}
+
+class NotificationLog {
+  - logId: Integer
+  - logDate: Date
+  - message: String
+  + addLog(message: String) : void
+}
+
+DigitalResource "1" -- "0..*" Reservation
+Reservation "1" -- "1" DigitalResource
+Reservation "1" -- "1" Patron
+Patron "1" -- "0..*" Reservation
+Student "0..*" -- "1" Faculty : advisor
+Faculty "1" -- "0..*" Student : advisee
+NotificationLog "1" -- "0..*" Reservation : logs
+Reservation "0..*" -- "1" NotificationLog : notifies
+@enduml
+
+/'' Snippet: snippet_02 | Domain: Library Management | Model: Nemotron 120B (OpenRouter) | Status: PASS (8/8) ''/
+@startuml
+' ==== Classes ====
+class Patron {
+    - patronId : String
+    - name : String
+    - email : String
+    + placeReservation(r : DigitalResource) : Reservation
+    + cancelReservation(r : Reservation) : void
+}
+
+class Student {
+    - studentId : String
+    - major : String
+    + borrowResource(r : DigitalResource) : void
+}
+
+class Faculty {
+    - facultyId : String
+    - department : String
+    + requestResource(r : DigitalResource) : void
+}
+
+class DigitalResource {
+    - resourceId : String
+    - title : String
+    - licenseExpiry : String
+    - fileSize : Integer
+    + isAvailable() : Boolean
+    + getFileSize() : Integer
+}
+
+class Reservation {
+    - reservationId : String
+    - reservationDate : String
+    - priorityStatus : String
+    - expiryDate : String
+    + isExpired() : Boolean
+    + notifyPatron() : void
+}
+
+class NotificationLog {
+    - logId : String
+    - timestamp : String
+    - message : String
+    + record(msg : String) : void
+}
+
+' ==== Relationships ====
+' Patron places many Reservations
+Patron "1" -- "0..*" Reservation : places >
+
+' Reservation is for one DigitalResource
+Reservation "1" -- "1" DigitalResource : for >
+
+' NotificationLog records notifications for Reservations
+Reservation "1" -- "0..*" NotificationLog : generates >
+
+' Student and Faculty are specialized Patrons (generalization with explicit multiplicities)
+Patron "1" -- "0..*" Student
+Patron "1" -- "0..*" Faculty
+
+' Optional: Student/Faculty may have specific reservations (inherited via Patron)
+' No extra links needed as inheritance covers it.
+
+@enduml
+
+/'' Snippet: snippet_03 | Domain: Library Management | Model: Gemini 3.5 Flash | Status: PASS (8/8) ''/
+@startuml
+skinparam classAttributeIconSize 0
+
+class Patron {
+    - patronId : String
+    - name : String
+    - email : String
+    - isSuspended : boolean
+    + suspend() : void
+    + unsuspend() : void
+    + hasOverdueFines() : boolean
+}
+
+class BookItem {
+    - barcode : String
+    - title : String
+    - status : String
+    + markOverdue() : void
+}
+
+class Loan {
+    - loanId : String
+    - checkoutDate : Date
+    - dueDate : Date
+    - returnDate : Date
+    + isOverdue() : boolean
+    + calculateOverdueDays() : int
+}
+
+class OverdueFine {
+    - fineId : String
+    - calculationDate : Date
+    - amountPerDay : double
+    - totalAmount : double
+    - paidStatus : boolean
+    + calculateFine(overdueDays : int) : double
+    + applyWaiver(amount : double) : void
+    + markAsPaid() : void
 }
 
 class Payment {
-  - paymentId : String
-  - amount : double
-  - status : String
-  + getPaymentId() : String
-  + getAmount() : double
-  + getStatus() : String
+    - paymentId : String
+    - amountPaid : double
+    - transactionDate : Date
+    - paymentMethod : String
+    + processPayment() : boolean
 }
 
-Customer "1" -- "0..*" Order
-Order "1" -- "0..*" OrderItem
-OrderItem "1" -- "1" Product
-ShoppingCart "1" -- "0..*" OrderItem : contains
-Order "1" -- "1" Payment
-Customer "1" -- "1" ShoppingCart : owns
+class Librarian {
+    - librarianId : String
+    - name : String
+    + issueWaiver(fine : OverdueFine, amount : double) : void
+    + suspendPatron(patron : Patron) : void
+    + checkFineThreshold(patron : Patron) : void
+}
 
+Patron "1" -- "0..*" Loan : borrows
+BookItem "1" -- "0..*" Loan : is borrowed in
+Loan "1" -- "0..1" OverdueFine : incurs
+Patron "1" -- "0..*" OverdueFine : owes
+Payment "0..1" -- "1..*" OverdueFine : settles
+Librarian "0..1" -- "0..*" OverdueFine : waives
+Librarian "0..1" -- "0..*" Patron : suspends
 @enduml
 
-/' Snippet: snippet_04 | Model: Llama 3.3 70B (Groq) | Status: PASS (8/8) '/
+/'' Snippet: snippet_03 | Domain: Library Management | Model: Llama 3.3 70B (Groq) | Status: PASS (8/8) ''/
 @startuml
-class Warehouse {
-  - id: Integer
-  - location: String
-  - capacity: Integer
-  + getAvailableSpace() : Integer
-  + receiveShipment(shipment: Shipment) : void
-}
-
-class Supplier {
-  - id: Integer
+class Patron {
+  - patronId: String
   - name: String
-  - address: String
-  + getShipments() : List[Shipment]
-  + addShipment(shipment: Shipment) : void
+  + getPatronId() : String
+  + getName() : String
 }
 
-class StockItem {
-  - id: Integer
-  - description: String
-  - quantity: Integer
-  - threshold: Integer
-  + getQuantity() : Integer
-  + restock(quantity: Integer) : void
-}
-
-class Shipment {
-  - id: Integer
-  - deliveryDate: Date
-  - trackingNumber: String
-  + getDeliveryDate() : Date
-  + getTrackingNumber() : String
-}
-
-class WarehouseManager {
-  - id: Integer
-  - name: String
-  + initiateRestockOrder(stockItem: StockItem) : void
-  + monitorWarehouse(warehouse: Warehouse) : void
-}
-
-class RestockOrder {
-  - id: Integer
-  - stockItem: StockItem
-  - quantity: Integer
-  + getStockItem() : StockItem
-  + getQuantity() : Integer
-}
-
-Warehouse "1" -- "0..*" StockItem
-StockItem "0..*" -- "0..*" Warehouse : stored in >
-Supplier "1" -- "0..*" Shipment
-Shipment "0..*" -- "0..1" Warehouse : delivered to >
-WarehouseManager "1" -- "0..*" Warehouse : manages >
-WarehouseManager "1" -- "0..*" RestockOrder : initiates >
-StockItem "1" -- "0..*" RestockOrder : subject of >
-Supplier "1" -- "0..*" RestockOrder : fulfills >
-Warehouse "1" -- "0..*" Shipment : receives >
-@enduml
-
-/' Snippet: snippet_05 | Model: Llama 3.3 70B (Groq) | Status: PASS (8/8) '/
-@startuml
-class BookTitle {
+class BookItem {
+  - bookItemId: String
   - title: String
-  - author: String
-  - publicationYear: Integer
-  + getPrerequisites() : List<BookTitle>
-  + getRecommendations() : List<BookTitle>
-}
-
-class BookCopy {
-  - copyId: String
-  - status: String
-  + isAvailable() : boolean
-}
-
-class LibraryMember {
-  - memberId: String
-  - name: String
-  - email: String
-  + borrowBook(copy: BookCopy) : void
-  + returnBook(copy: BookCopy) : void
+  + getBookItemId() : String
+  + getTitle() : String
 }
 
 class Loan {
   - loanId: String
-  - borrowDate: Date
   - dueDate: Date
-  + extendLoan(days: Integer) : void
-  + calculateFine() : double
+  + getLoanId() : String
+  + getDueDate() : Date
 }
+
+class OverdueFine {
+  - fineId: String
+  - calculationDate: Date
+  - amountPerDay: double
+  - totalAmount: double
+  - paidStatus: Boolean
+  + getFineId() : String
+  + getCalculationDate() : Date
+  + getAmountPerDay() : double
+  + getTotalAmount() : double
+  + getPaidStatus() : Boolean
+}
+
+class Payment {
+  - paymentId: String
+  - amountPaid: double
+  - transactionDate: Date
+  - paymentMethod: String
+  + getPaymentId() : String
+  + getAmountPaid() : double
+  + getTransactionDate() : Date
+  + getPaymentMethod() : String
+}
+
+Patron "1" -- "0..*" Loan
+Loan "1" -- "0..*" OverdueFine
+OverdueFine "1" -- "0..*" Payment : settles
+Payment "1" -- "0..*" OverdueFine : pays
+Patron "1" -- "0..*" OverdueFine : incurs
+Librarian "1" -- "0..*" Patron : manages
+Librarian "1" -- "0..*" OverdueFine : waives
+Librarian "1" -- "0..*" Patron : suspends
 
 class Librarian {
   - librarianId: String
   - name: String
-  + approveLoanExtension(loan: Loan) : void
-  + calculateOverdueFine(loan: Loan) : double
+  + getLibrarianId() : String
+  + getName() : String
 }
 
-BookTitle "1" -- "0..*" BookTitle : prerequisite
-BookTitle "1" -- "0..*" BookTitle : recommendation
-BookTitle "1" -- "0..*" BookCopy : hasCopy
-BookCopy "0..*" -- "1" BookTitle : belongsTo
-LibraryMember "1" -- "0..*" Loan : hasLoan
-Loan "1" -- "1" BookCopy : forCopy
-Loan "1" -- "1" LibraryMember : forMember
-Librarian "1" -- "0..*" Loan : manages
-LibraryMember "1" -- "0..*" BookCopy : borrowed
+OverdueFine "0..*" -- "1" OverdueFine : nextFine
 @enduml
 
-/' Snippet: snippet_06 | Model: Llama 3.3 70B (Groq) | Status: FAIL (4/8) '/
+/'' Snippet: snippet_03 | Domain: Library Management | Model: Nemotron 120B (OpenRouter) | Status: PASS (8/8) ''/
 @startuml
-class MediaItem {
-  title: String
-  publisher: String
-  availabilityState: Boolean
-  reserve(): void
-  stream(): void
-  renewLoan(): void
+class Patron {
+    - patronId : String
+    - name : String
+    - contactInfo : String
+    + getPatronId() : String
+    + getName() : String
+    + getContactInfo() : String
+    + setContactInfo(info:String) : void
+}
+class BookItem {
+    - itemId : String
+    - title : String
+    - author : String
+    - isbn : String
+    + getItemId() : String
+    + getTitle() : String
+    + getAuthor() : String
+    + getIsbn() : String
+}
+class Loan {
+    - loanId : String
+    - loanDate : java.util.Date
+    - dueDate : java.util.Date
+    - returnDate : java.util.Date
+    + getLoanId() : String
+    + getLoanDate() : java.util.Date
+    + getDueDate() : java.util.Date
+    + getReturnDate() : java.util.Date
+    + setReturnDate(date:java.util.Date) : void
+    + isOverdue() : boolean
+}
+class OverdueFine {
+    - fineId : String
+    - calculationDate : java.util.Date
+    - amountPerDay : double
+    - totalAmount : double
+    - paidStatus : boolean
+    + getFineId() : String
+    + getCalculationDate() : java.util.Date
+    + getAmountPerDay() : double
+    + getTotalAmount() : double
+    + isPaid() : boolean
+    + setPaid(status:boolean) : void
+    + calculateFine(daysOverdue:int) : double
+}
+class Payment {
+    - paymentId : String
+    - amountPaid : double
+    - transactionDate : java.util.Date
+    - paymentMethod : String
+    + getPaymentId() : String
+    + getAmountPaid() : double
+    + getTransactionDate() : java.util.Date
+    + getPaymentMethod() : String
+    + setPaymentMethod(method:String) : void
+}
+class Librarian {
+    - librarianId : String
+    - name : String
+    - fineThreshold : double
+    + getLibrarianId() : String
+    + getName() : String
+    + getFineThreshold() : double
+    + setFineThreshold(threshold:double) : void
+    + issueWaiver(fine:OverdueFine) : void
+    + suspendBorrowing(patron:Patron) : void
+}
+Patron "1" -- "0..*" Loan : has >
+BookItem "1" -- "0..*" Loan : loaned for >
+Loan "0..1" -- "1" OverdueFine : may generate >
+Payment "1" -- "0..*" OverdueFine : pays for >
+Librarian "1" -- "0..*" Patron : oversees >
+Librarian "1" -- "0..*" OverdueFine : can waive >
+@enduml
+
+/'' Snippet: snippet_04 | Domain: Library Management | Model: Gemini 3.5 Flash | Status: PASS (8/8) ''/
+@startuml
+skinparam classAttributeIconSize 0
+
+enum ShippingStatus {
+    REQUESTED
+    DISPATCHED
+    ARRIVED
+    COMPLETED
+}
+
+class Branch {
+    - branchId : String
+    - branchName : String
+    - location : String
+    + getBranchId() : String
+    + getBranchName() : String
+    + getLocation() : String
+}
+
+class CentralCatalog {
+    - catalogId : String
+    + locateBook(bookId : String) : Branch
+    + coordinateTransfer(transfer : InterLibraryTransfer) : boolean
 }
 
 class Patron {
-  id: Integer
-  name: String
-  email: String
-  renewLoan(mediaItem: MediaItem): void
-  streamMedia(mediaItem: MediaItem): void
-  payLateFees(): void
+    - patronId : String
+    - name : String
+    - email : String
+    + requestTransfer(bookId : String, targetBranchId : String) : InterLibraryTransfer
+}
+
+class InterLibraryTransfer {
+    - transferId : String
+    - dispatchDate : Date
+    - arrivalDate : Date
+    - shippingStatus : ShippingStatus
+    + updateShippingStatus(status : ShippingStatus) : void
+    + setDispatchDate(date : Date) : void
+    + setArrivalDate(date : Date) : void
+}
+
+class Librarian {
+    - librarianId : String
+    - name : String
+    + updateDispatchMilestone(transfer : InterLibraryTransfer, date : Date) : void
+    + updateArrivalMilestone(transfer : InterLibraryTransfer, date : Date) : void
+}
+
+class Book {
+    - bookId : String
+    - title : String
+    - author : String
+    + getBookId() : String
+}
+
+' Relationships with explicit multiplicities on both ends
+
+Branch "1" -- "0..*" Librarian : employs
+
+Patron "1" -- "0..*" InterLibraryTransfer : initiates
+
+Book "1" -- "0..*" InterLibraryTransfer : involves
+
+Branch "1" -- "0..*" InterLibraryTransfer : sendingBranch
+
+Branch "1" -- "0..*" InterLibraryTransfer : receivingBranch
+
+CentralCatalog "1" -- "0..*" InterLibraryTransfer : coordinates
+
+CentralCatalog "1" -- "1..*" Branch : monitors
+
+Librarian "1" -- "0..*" InterLibraryTransfer : updatesDispatch
+
+Librarian "1" -- "0..*" InterLibraryTransfer : updatesArrival
+
+@enduml
+
+/'' Snippet: snippet_04 | Domain: Library Management | Model: Llama 3.3 70B (Groq) | Status: PASS (8/8) ''/
+@startuml
+class Branch {
+  - branchId: String
+  - branchName: String
+  - location: String
+  + getBranchId() : String
+  + getBranchName() : String
+  + getLocation() : String
+}
+
+class CentralCatalog {
+  + coordinateInterLibraryLoan() : void
+}
+
+class Patron {
+  - patronId: String
+  - name: String
+  + getPatronId() : String
+  + getName() : String
+}
+
+class InterLibraryTransfer {
+  - transferId: String
+  - dispatchDate: Date
+  - arrivalDate: Date
+  - shippingStatus: String
+  + getTransferId() : String
+  + getDispatchDate() : Date
+  + getArrivalDate() : Date
+  + getShippingStatus() : String
+  + updateShippingStatus(newStatus: String) : void
+}
+
+class Book {
+  - bookId: String
+  - title: String
+  + getBookId() : String
+  + getTitle() : String
+}
+
+CentralCatalog "1" -- "0..*" Branch
+Patron "1" -- "0..*" InterLibraryTransfer
+Branch "1" -- "0..*" InterLibraryTransfer
+InterLibraryTransfer "1" -- "1" Book
+InterLibraryTransfer "1" -- "1" Branch : sendingBranch
+InterLibraryTransfer "1" -- "1" Branch : receivingBranch
+Branch "0..*" -- "0..*" InterLibraryTransfer : updatesTransfer
+@enduml
+
+/'' Snippet: snippet_04 | Domain: Library Management | Model: Nemotron 120B (OpenRouter) | Status: PASS (8/8) ''/
+@startuml
+class Branch {
+    - branchId : String
+    - branchName : String
+    - location : String
+    + getBranchId() : String
+    + getBranchName() : String
+    + getLocation() : String
+}
+class CentralCatalog {
+    - catalogId : String
+    + createTransfer(patron: Patron, bookId: String, sendingBranch: Branch, receivingBranch: Branch) : InterLibraryTransfer
+    + getAllTransfers() : java.util.List<InterLibraryTransfer>
+}
+class Patron {
+    - patronId : String
+    - name : String
+    - contactInfo : String
+    + requestTransfer(bookId: String, sendingBranch: Branch, receivingBranch: Branch) : InterLibraryTransfer
+    + getPatronId() : String
+}
+class InterLibraryTransfer {
+    - transferId : String
+    - dispatchDate : java.util.Date
+    - arrivalDate : java.util.Date
+    - shippingStatus : String
+    + getTransferId() : String
+    + updateStatus(status: String) : void
+    + getDispatchDate() : java.util.Date
+    + getArrivalDate() : java.util.Date
+    + getShippingStatus() : String
+}
+class Librarian {
+    - employeeId : String
+    - name : String
+    + updateMilestone(transfer: InterLibraryTransfer, milestone: String) : void
+    + getEmployeeId() : String
+}
+Branch "1" -- "0..*" InterLibraryTransfer : sends >
+Branch "1" -- "0..*" InterLibraryTransfer : receives >
+CentralCatalog "1" -- "0..*" InterLibraryTransfer : coordinates >
+Patron "1" -- "0..*" InterLibraryTransfer : requests >
+Librarian "0..*" -- "0..*" InterLibraryTransfer : updates >
+@enduml
+
+/'' Snippet: snippet_05 | Domain: Library Management | Model: Gemini 3.5 Flash | Status: PASS (8/8) ''/
+@startuml
+skinparam classAttributeIconSize 0
+
+class Author {
+    - authorId : String
+    - fullName : String
+    - nationality : String
+    + getAuthorId() : String
+    + getFullName() : String
+    + getNationality() : String
+}
+
+class Book {
+    - bookId : String
+    - title : String
+    + getBookId() : String
+    + getTitle() : String
+}
+
+class RareManuscript {
+    - preservationCondition : String
+    - restorationHistory : String
+    - restrictedAccessLevel : String
+    + getPreservationCondition() : String
+    + getRestorationHistory() : String
+    + getRestrictedAccessLevel() : String
+}
+
+class SubjectCategory {
+    - categoryCode : String
+    - categoryName : String
+    - deweyDecimalNumber : String
+    + getCategoryCode() : String
+    + getCategoryName() : String
+    + getDeweyDecimalNumber() : String
+}
+
+Author "1..*" -- "0..*" Book : writes
+
+Book "0..*" -- "1" SubjectCategory : has primary
+
+SubjectCategory "0..1" -- "0..*" SubjectCategory : parent / sub-category
+
+RareManuscript --|> Book
+
+@enduml
+
+/'' Snippet: snippet_05 | Domain: Library Management | Model: Llama 3.3 70B (Groq) | Status: PASS (8/8) ''/
+@startuml
+class Author {
+  - authorId : String
+  - fullName : String
+  - nationality : String
+  + getAuthorId() : String
+  + getFullName() : String
+  + getNationality() : String
+}
+
+class Book {
+  - bookId : String
+  - title : String
+  - publicationYear : Integer
+  + getBookId() : String
+  + getTitle() : String
+  + getPublicationYear() : Integer
+}
+
+class RareManuscript {
+  - preservationCondition : String
+  - restorationHistory : String
+  - restrictedAccessLevel : String
+  + getPreservationCondition() : String
+  + getRestorationHistory() : String
+  + getRestrictedAccessLevel() : String
+}
+
+class SubjectCategory {
+  - categoryCode : String
+  - categoryName : String
+  - deweyDecimalNumber : String
+  + getCategoryCode() : String
+  + getCategoryName() : String
+  + getDeweyDecimalNumber() : String
+}
+
+Author "1" -- "0..*" Book
+Book "0..*" -- "1" SubjectCategory
+SubjectCategory "0..*" -- "0..*" SubjectCategory : subCategory > parentCategory
+Book "1" -- "0..*" RareManuscript : inherits
+@enduml
+
+/'' Snippet: snippet_05 | Domain: Library Management | Model: Nemotron 120B (OpenRouter) | Status: PASS (8/8) ''/
+@startuml
+class Author {
+  - authorId : String
+  - fullName : String
+  - nationality : String
+  + getAuthorId() : String
+  + getFullName() : String
+  + getNationality() : String
+  + setAuthorId(id:String) : void
+  + setFullName(name:String) : void
+  + setNationality(nat:String) : void
+}
+
+class Book {
+  - isbn : String
+  - title : String
+  - publicationYear : int
+  + getIsbn() : String
+  + getTitle() : String
+  + getPublicationYear() : int
+  + setIsbn(isbn:String) : void
+  + setTitle(title:String) : void
+  + setPublicationYear(year:int) : void
+}
+
+class SubjectCategory {
+  - categoryCode : String
+  - categoryName : String
+  - deweyDecimalNumber : String
+  + getCategoryCode() : String
+  + getCategoryName() : String
+  + getDeweyDecimalNumber() : String
+  + setCategoryCode(code:String) : void
+  + setCategoryName(name:String) : void
+  + setDeweyDecimalNumber(ddn:String) : void
+}
+
+class RareManuscript {
+  - preservationCondition : String
+  - restorationHistory : String
+  - restrictedAccessLevel : int
+  + getPreservationCondition() : String
+  + getRestorationHistory() : String
+  + getRestrictedAccessLevel() : int
+  + setPreservationCondition(cond:String) : void
+  + setRestorationHistory(hist:String) : void
+  + setRestrictedAccessLevel(level:int) : void
+}
+
+Author "1" -- "0..*" Book : writes
+Book "1" -- "1" SubjectCategory : primaryCategory
+SubjectCategory "1" -- "0..*" SubjectCategory : parent
+RareManuscript --|> Book
+@enduml
+
+/'' Snippet: snippet_06 | Domain: Healthcare Informatics | Model: Gemini 3.5 Flash | Status: PASS (8/8) ''/
+@startuml
+class Patient {
+    - patientId : String
+    - legalName : String
+    - dateOfBirth : Date
+    - bloodGroup : String
+    + getPrimaryCarePhysician() : Doctor
+    + getMedicalRecord() : MedicalRecord
+}
+
+class Doctor {
+    - employeeId : String
+    - fullName : String
+    - specialization : String
+    - licenseNumber : String
+    + createDiagnosticReport(record : MedicalRecord, diagnosis : String) : DiagnosticReport
+    + writeClinicalNote(record : MedicalRecord, content : String) : ClinicalNote
+}
+
+class MedicalRecord {
+    - recordId : String
+    - dateCreated : Date
+    + addClinicalNote(note : ClinicalNote) : void
+    + addAllergyRecord(allergy : AllergyRecord) : void
+    + addDiagnosticReport(report : DiagnosticReport) : void
+}
+
+class ClinicalNote {
+    - noteId : String
+    - creationDate : Date
+    - content : String
+    + getContent() : String
+}
+
+class AllergyRecord {
+    - allergyId : String
+    - allergen : String
+    - severity : String
+    - recordedDate : Date
+    + getAllergyDetails() : String
+}
+
+class DiagnosticReport {
+    - reportId : String
+    - diagnosis : String
+    - testResults : String
+    - issuedDate : Date
+    + getReportSummary() : String
+}
+
+Patient "0..*" -- "1" Doctor : hasPrimaryCarePhysician
+Patient "1" -- "1" MedicalRecord : owns
+MedicalRecord "1" *-- "0..*" ClinicalNote : contains
+MedicalRecord "1" *-- "0..*" AllergyRecord : tracks
+MedicalRecord "1" *-- "0..*" DiagnosticReport : stores
+Doctor "1" -- "0..*" DiagnosticReport : creates
+Doctor "1" -- "0..*" ClinicalNote : writes
+@enduml
+
+/'' Snippet: snippet_06 | Domain: Healthcare Informatics | Model: Llama 3.3 70B (Groq) | Status: PASS (8/8) ''/
+@startuml
+class Patient {
+  - patientId : String
+  - legalName : String
+  - dateOfBirth : Date
+  - bloodGroup : String
+  + getPatientId() : String
+  + getLegalName() : String
+  + getDateOfBirth() : Date
+  + getBloodGroup() : String
+}
+
+class Doctor {
+  - employeeId : String
+  - fullName : String
+  - specialization : String
+  - licenseNumber : String
+  + getEmployeeId() : String
+  + getFullName() : String
+  + getSpecialization() : String
+  + getLicenseNumber() : String
+}
+
+class MedicalRecord {
+  - medicalRecordId : String
+  - creationDate : Date
+  + getMedicalRecordId() : String
+  + getCreationDate() : Date
+}
+
+class ClinicalNote {
+  - noteId : String
+  - noteDate : Date
+  - noteText : String
+  + getNoteId() : String
+  + getNoteDate() : Date
+  + getNoteText() : String
+}
+
+class AllergyRecord {
+  - allergyId : String
+  - allergyName : String
+  - severityLevel : String
+  + getAllergyId() : String
+  + getAllergyName() : String
+  + getSeverityLevel() : String
+}
+
+class DiagnosticReport {
+  - reportId : String
+  - reportDate : Date
+  - reportText : String
+  + getReportId() : String
+  + getReportDate() : Date
+  + getReportText() : String
+}
+
+Patient "1" -- "1" Doctor
+Patient "1" -- "1..*" MedicalRecord
+MedicalRecord "1" -- "0..*" ClinicalNote
+MedicalRecord "1" -- "0..*" AllergyRecord
+MedicalRecord "1" -- "0..*" DiagnosticReport
+Doctor "1" -- "0..*" DiagnosticReport : creates
+
+@enduml
+
+/'' Snippet: snippet_06 | Domain: Healthcare Informatics | Model: Nemotron 120B (OpenRouter) | Status: PASS (8/8) ''/
+@startuml
+class Patient {
+    - patientId : String
+    - legalName : String
+    - dateOfBirth : LocalDate
+    - bloodGroup : String
+    + assignPrimaryCarePhysician(doc:Doctor) : void
+    + getPrimaryCarePhysician() : Doctor
+}
+class Doctor {
+    - employeeId : String
+    - fullName : String
+    - specialization : String
+    - licenseNumber : String
+    + createDiagnosticReport(patient:Patient, findings:String, conclusion:String) : DiagnosticReport
+}
+class MedicalRecord {
+    - recordId : String
+    - creationDate : LocalDate
+    + addClinicalNote(note:ClinicalNote) : void
+    + addAllergy(allergy:AllergyRecord) : void
+    + addDiagnosticReport(report:DiagnosticReport) : void
+}
+class ClinicalNote {
+    - noteId : String
+    - timestamp : LocalDateTime
+    - noteText : String
+    + getNoteText() : String
+}
+class AllergyRecord {
+    - allergyId : String
+    - allergen : String
+    - reaction : String
+    - severity : String
+    + getAllergen() : String
+}
+class DiagnosticReport {
+    - reportId : String
+    - reportDate : LocalDateTime
+    - findings : String
+    - conclusion : String
+    + getFindings() : String
+}
+Patient "1" -- "0..*" Doctor : primaryCarePhysician
+Patient "1" -- "1" MedicalRecord : has
+MedicalRecord "1" -- "0..*" ClinicalNote : contains
+MedicalRecord "1" -- "0..*" AllergyRecord : contains
+MedicalRecord "1" -- "0..*" DiagnosticReport : contains
+Doctor "1" -- "0..*" DiagnosticReport : creates
+@enduml
+
+/'' Snippet: snippet_07 | Domain: Healthcare Informatics | Model: Gemini 3.5 Flash | Status: PASS (8/8) ''/
+@startuml
+skinparam classAttributeIconSize 0
+
+class Ward {
+    - wardNumber : String
+    - department : String
+    - capacity : int
+    + getAvailableBeds() : int
+    + assignBed(bedId : String) : boolean
+}
+
+class Bed {
+    - bedId : String
+    - roomNumber : String
+    - isOccupied : boolean
+    + occupy() : void
+    + release() : void
+}
+
+class Patient {
+    - patientId : String
+    - name : String
+    - dateOfBirth : Date
+    + getCurrentBed() : Bed
+}
+
+class Admission {
+    - admissionId : String
+    - admissionDate : Date
+    - dischargeDate : Date
+    - admittingDoctor : String
+    - diagnosisSummary : String
+    + recordDischarge(dischargeDate : Date) : void
+}
+
+class Nurse {
+    - staffId : String
+    - shiftTiming : String
+    + monitorBed(bedId : String) : void
+}
+
+Ward "1" *-- "1..*" Bed
+Bed "1" -- "0..1" Patient
+Patient "1" *-- "1..*" Admission
+Nurse "1..*" -- "1..*" Bed
+@enduml
+
+/'' Snippet: snippet_07 | Domain: Healthcare Informatics | Model: Llama 3.3 70B (Groq) | Status: PASS (8/8) ''/
+@startuml
+class Ward {
+  - wardNumber : String
+  - department : String
+  - capacity : int
+  + getWardNumber() : String
+  + getDepartment() : String
+  + getCapacity() : int
+}
+
+class Bed {
+  - bedId : String
+  - roomNumber : String
+  - isOccupied : boolean
+  + getBedId() : String
+  + getRoomNumber() : String
+  + getIsOccupied() : boolean
+  + occupy() : void
+  + vacate() : void
+}
+
+class Patient {
+  - patientId : String
+  - name : String
+  + getPatientId() : String
+  + getName() : String
+}
+
+class Admission {
+  - admissionId : String
+  - admissionDate : Date
+  - dischargeDate : Date
+  - admittingDoctor : String
+  - diagnosisSummary : String
+  + getAdmissionId() : String
+  + getAdmissionDate() : Date
+  + getDischargeDate() : Date
+  + getAdmittingDoctor() : String
+  + getDiagnosisSummary() : String
+}
+
+class Nurse {
+  - staffId : String
+  - shiftTiming : String
+  + getStaffId() : String
+  + getShiftTiming() : String
+}
+
+Ward "1" -- "0..*" Bed
+Patient "1" -- "0..*" Admission
+Admission "1" -- "1" Patient
+Admission "1" -- "1" Bed
+Bed "0..*" -- "0..*" Nurse : monitors
+Nurse "0..*" -- "0..*" Bed : assignedTo
+Patient "1" -- "1" Bed : assignedTo
+@enduml
+
+/'' Snippet: snippet_07 | Domain: Healthcare Informatics | Model: Nemotron 120B (OpenRouter) | Status: PASS (8/8) ''/
+@startuml
+class Ward {
+    - wardNumber : String
+    - department : String
+    - capacity : int
+    + getWardNumber() : String
+    + setWardNumber(wardNumber:String) : void
+    + getDepartment() : String
+    + setDepartment(dept:String) : void
+    + getCapacity() : int
+    + setCapacity(cap:int) : void
+}
+class Bed {
+    - bedId : String
+    - roomNumber : String
+    - isOccupied : boolean
+    + getBedId() : String
+    + setBedId(id:String) : void
+    + getRoomNumber() : String
+    + setRoomNumber(rn:String) : void
+    + getIsOccupied() : boolean
+    + setIsOccupied(occ:boolean) : void
+}
+class Patient {
+    - patientId : String
+    - name : String
+    - dateOfBirth : java.util.Date
+    - gender : String
+    + getPatientId() : String
+    + setPatientId(id:String) : void
+    + getName() : String
+    + setName(name:String) : void
+    + getDateOfBirth() : java.util.Date
+    + setDateOfBirth(dob:java.util.Date) : void
+    + getGender() : String
+    + setGender(g:String) : void
+}
+class Admission {
+    - admissionId : String
+    - admissionDate : java.util.Date
+    - dischargeDate : java.util.Date
+    - admittingDoctor : String
+    - diagnosisSummary : String
+    + getAdmissionId() : String
+    + setAdmissionId(id:String) : void
+    + getAdmissionDate() : java.util.Date
+    + setAdmissionDate(d:java.util.Date) : void
+    + getDischargeDate() : java.util.Date
+    + setDischargeDate(d:java.util.Date) : void
+    + getAdmittingDoctor() : String
+    + setAdmittingDoctor(doc:String) : void
+    + getDiagnosisSummary() : String
+    + setDiagnosisSummary(sum:String) : void
+}
+class Nurse {
+    - staffId : String
+    - shiftTiming : String
+    + getStaffId() : String
+    + setStaffId(id:String) : void
+    + getShiftTiming() : String
+    + setShiftTiming(st:String) : void
+}
+Ward "1" -- "0..*" Bed : contains >
+Bed "0..1" -- "0..1" Patient : assignedTo >
+Patient "1" -- "0..*" Admission : hasAdmission >
+Admission "1" -- "1" Patient : forPatient >
+Admission "1" -- "0..1" Bed : assignedBed >
+Admission "1" -- "0..1" Ward : inWard >
+Nurse "0..*" -- "0..*" Bed : monitors >
+@enduml
+
+/'' Snippet: snippet_08 | Domain: Healthcare Informatics | Model: Gemini 3.5 Flash | Status: PASS (8/8) ''/
+@startuml
+skinparam classAttributeIconSize 0
+
+class Doctor {
+    - doctorId : String
+    - name : String
+    - specialization : String
+    + writePrescription(patient : Patient, instructions : String) : Prescription
+}
+
+class Patient {
+    - patientId : String
+    - name : String
+    - dateOfBirth : Date
+    + getMedicalHistory() : String
+}
+
+class Encounter {
+    - encounterId : String
+    - encounterDate : Date
+    + getEncounterDetails() : String
+}
+
+class Prescription {
+    - prescriptionId : String
+    - prescriptionDate : Date
+    - dosageInstructions : String
+    + addPrescriptionItem(item : PrescriptionItem) : void
+    + getPrescriptionSummary() : String
+}
+
+class PrescriptionItem {
+    - quantity : int
+    - instructions : String
+    + getItemDetails() : String
+}
+
+class Medication {
+    - code : String
+    - brandName : String
+    - genericFormula : String
+    - unitStrength : String
+    + getMedicationDetails() : String
+}
+
+class Pharmacist {
+    - pharmacistId : String
+    - name : String
+    - licenseNumber : String
+    + dispensePrescription(prescription : Prescription) : DispensationLog
+}
+
+class DispensationLog {
+    - logId : String
+    - timestamp : Date
+    - verificationSignoff : String
+    + verifyDispensation() : boolean
+}
+
+Doctor "1" -- "0..*" Encounter : conducts >
+Patient "1" -- "0..*" Encounter : attends >
+Encounter "1" -- "0..*" Prescription : results_in >
+Doctor "1" -- "0..*" Prescription : writes >
+Patient "1" -- "0..*" Prescription : receives >
+Prescription "1" *-- "1..*" PrescriptionItem : contains >
+PrescriptionItem "0..*" -- "1" Medication : references >
+Pharmacist "1" -- "0..*" DispensationLog : records >
+Prescription "1" -- "0..1" DispensationLog : fulfilled_by >
+
+@enduml
+
+/'' Snippet: snippet_08 | Domain: Healthcare Informatics | Model: Llama 3.3 70B (Groq) | Status: PASS (8/8) ''/
+@startuml
+class Doctor {
+  - doctorId: String
+  - name: String
+  + prescribe() : Prescription
+}
+
+class Patient {
+  - patientId: String
+  - name: String
+}
+
+class Prescription {
+  - prescriptionId: String
+  - prescriptionDate: Date
+  - dosageInstructions: String
+  + getPrescriptionItems() : List[PrescriptionItem]
+}
+
+class PrescriptionItem {
+  - itemId: String
+  - quantity: Integer
+  + getMedication() : Medication
+}
+
+class Medication {
+  - code: String
+  - brandName: String
+  - genericFormula: String
+  - unitStrength: String
+}
+
+class Pharmacist {
+  - pharmacistId: String
+  - name: String
+  + dispense() : DispensationLog
+}
+
+class DispensationLog {
+  - logId: String
+  - timestamp: Date
+  - verificationSignoff: String
+}
+
+Doctor "1" -- "0..*" Prescription
+Patient "1" -- "0..*" Prescription
+Prescription "1" -- "0..*" PrescriptionItem
+PrescriptionItem "1" -- "1" Medication
+Pharmacist "1" -- "0..*" DispensationLog
+DispensationLog "1" -- "1" Prescription
+@enduml
+
+/'' Snippet: snippet_08 | Domain: Healthcare Informatics | Model: Nemotron 120B (OpenRouter) | Status: PASS (8/8) ''/
+@startuml
+class Doctor {
+    - id : String
+    - name : String
+    + writePrescription(patient: Patient) : Prescription
+}
+class Patient {
+    - id : String
+    - name : String
+    + getPrescriptions() : List<Prescription>
+}
+class Pharmacy {
+    - id : String
+    - name : String
+    + employ(pharmacist: Pharmacist) : void
+}
+class Pharmacist {
+    - id : String
+    - name : String
+    + dispense(item: PrescriptionItem) : DispensationLog
+}
+class Prescription {
+    - id : String
+    - prescriptionDate : Date
+    - dosageInstructions : String
+    + addItem(item: PrescriptionItem) : void
+    + getItems() : List<PrescriptionItem>
+}
+class PrescriptionItem {
+    - id : String
+    - quantity : Integer
+    + getMedication() : Medication
+}
+class Medication {
+    - code : String
+    - brandName : String
+    - genericFormula : String
+    - unitStrength : String
+}
+class DispensationLog {
+    - id : String
+    - timestamp : DateTime
+    - verificationSignoff : String
+    + getPharmacist() : Pharmacist
+    + getPrescriptionItem() : PrescriptionItem
+}
+Doctor "1" -- "0..*" Prescription : writes >
+Patient "1" -- "0..*" Prescription : has >
+Prescription "1" -- "0..*" PrescriptionItem : contains >
+PrescriptionItem "1" -- "1" Medication : references >
+Pharmacist "1" -- "0..*" DispensationLog : creates >
+DispensationLog "0..*" -- "1" PrescriptionItem : for >
+Pharmacy "1" -- "0..*" Pharmacist : employs >
+@enduml
+
+/'' Snippet: snippet_09 | Domain: Healthcare Informatics | Model: Gemini 3.5 Flash | Status: PASS (8/8) ''/
+@startuml
+skinparam classAttributeIconSize 0
+
+enum AppointmentStatus {
+    BOOKED
+    COMPLETED
+    CANCELLED
+}
+
+class Patient {
+    - patientId : String
+    - name : String
+    - dateOfBirth : Date
+    + scheduleAppointment(doctor : Doctor, time : DateTime) : Appointment
+}
+
+class Doctor {
+    - doctorId : String
+    - name : String
+    - specialty : String
+    + viewAppointments() : List<Appointment>
+}
+
+class TriageNurse {
+    - nurseId : String
+    - name : String
+    + recordVitals(appointment : Appointment, systolic : int, diastolic : int, hr : int, temp : double, pulseOx : int) : VitalSignsSheet
+}
+
+class VitalSignsSheet {
+    - sheetId : String
+    - systolicBP : int
+    - diastolicBP : int
+    - heartRate : int
+    - temperature : double
+    - pulseOximetry : int
+    + isNormal() : boolean
+    + getPulseOximetry() : int
+}
+
+class Appointment {
+    - appointmentId : String
+    - scheduledTime : DateTime
+    - appointmentType : String
+    - status : AppointmentStatus
+    + cancelAppointment() : boolean
+    + completeAppointment() : void
+    + linkVitalSigns(vitals : VitalSignsSheet) : void
+}
+
+Patient "1" -- "0..*" Appointment : schedules >
+Doctor "1" -- "0..*" Appointment : attends >
+TriageNurse "1" -- "0..*" VitalSignsSheet : records >
+Appointment "1" -- "0..1" VitalSignsSheet : contains >
+
+@enduml
+
+/'' Snippet: snippet_09 | Domain: Healthcare Informatics | Model: Llama 3.3 70B (Groq) | Status: PASS (8/8) ''/
+@startuml
+class Patient {
+  - patientId: String
+  - name: String
+  + scheduleAppointment(appointmentId: String, scheduledTime: Date, appointmentType: String): Appointment
+}
+
+class Doctor {
+  - doctorId: String
+  - name: String
+}
+
+class Appointment {
+  - appointmentId: String
+  - scheduledTime: Date
+  - appointmentType: String
+  - status: String
+  + book(): void
+  + complete(): void
+  + cancel(): void
+}
+
+class TriageNurse {
+  - nurseId: String
+  - name: String
+  + recordVitalSigns(appointment: Appointment, systolicBP: int, diastolicBP: int, heartRate: int, temperature: double, pulseOximetry: double): VitalSignsSheet
+}
+
+class VitalSignsSheet {
+  - systolicBP: int
+  - diastolicBP: int
+  - heartRate: int
+  - temperature: double
+  - pulseOximetry: double
+}
+
+Patient "1" -- "0..*" Appointment
+Doctor "1" -- "0..*" Appointment
+TriageNurse "1" -- "0..*" VitalSignsSheet
+Appointment "1" -- "0..1" VitalSignsSheet
+@enduml
+
+/'' Snippet: snippet_09 | Domain: Healthcare Informatics | Model: Nemotron 120B (OpenRouter) | Status: PASS (8/8) ''/
+@startuml
+class Patient {
+ - patientId : String
+ - name : String
+ - contactInfo : String
+ + scheduleAppointment(d : Doctor, t : DateTime) : Appointment
+ + cancelAppointment(a : Appointment) : void
+}
+class Doctor {
+ - doctorId : String
+ - name : String
+ - specialty : String
+ + seePatient(a : Appointment) : void
+}
+class Appointment {
+ - appointmentId : String
+ - scheduledTime : DateTime
+ - appointmentType : String
+ - status : String
+ + getDetails() : String
+}
+class TriageNurse {
+ - nurseId : String
+ - name : String
+ + recordVitalSigns(a : Appointment) : VitalSignsSheet
+}
+class VitalSignsSheet {
+ - sheetId : String
+ - systolicBP : int
+ - diastolicBP : int
+ - heartRate : int
+ - temperature : double
+ - pulseOximetry : int
+ + getSummary() : String
+}
+Patient "1" -- "0..*" Appointment : schedules >
+Doctor "1" -- "0..*" Appointment : assigned to >
+TriageNurse "1" -- "0..*" VitalSignsSheet : records >
+Appointment "1" -- "1" VitalSignsSheet : has >
+@enduml
+
+/'' Snippet: snippet_10 | Domain: Healthcare Informatics | Model: Gemini 3.5 Flash | Status: PASS (8/8) ''/
+@startuml
+skinparam classAttributeIconSize 0
+
+class SurgicalUnit {
+    - unitId : String
+    - unitName : String
+    + coordinateTheatre(theatre : OperationTheatre) : void
+    + scheduleSurgery(surgery : ScheduledSurgery) : boolean
+}
+
+class OperationTheatre {
+    - theatreId : String
+    - roomLocation : String
+    - sterileStatus : boolean
+    + updateSterileStatus(status : boolean) : void
+    + checkAvailability() : boolean
+}
+
+class SurgeryProcedure {
+    - procedureCode : String
+    - procedureName : String
+    - estimatedDuration : int
+    + getProcedureDetails() : String
+}
+
+class Patient {
+    - patientId : String
+    - name : String
+    - dateOfBirth : String
+    + getPatientRecord() : String
+}
+
+class ScheduledSurgery {
+    - surgeryId : String
+    - scheduledTime : String
+    - status : String
+    + startSurgery() : void
+    + completeSurgery() : void
+}
+
+class SurgicalTeam {
+    - teamId : String
+    + verifyTeamChecklist() : boolean
+}
+
+class LeadSurgeon {
+    - surgeonId : String
+    - name : String
+    - surgicalRole : String
+    - checklistVerified : boolean
+    + performChecklistVerification() : boolean
+    + leadProcedure() : void
+}
+
+class Anesthesiologist {
+    - anesthesiologistId : String
+    - name : String
+    - surgicalRole : String
+    - checklistVerified : boolean
+    + performChecklistVerification() : boolean
+    + administerAnesthesia() : void
+}
+
+class ScrubNurse {
+    - nurseId : String
+    - name : String
+    - surgicalRole : String
+    - checklistVerified : boolean
+    + performChecklistVerification() : boolean
+    + assistSurgeon() : void
+}
+
+SurgicalUnit "1" -- "1..*" OperationTheatre : coordinates
+SurgicalUnit "1" -- "0..*" ScheduledSurgery : manages
+ScheduledSurgery "0..*" -- "1" OperationTheatre : takes place in
+ScheduledSurgery "0..*" -- "1" SurgeryProcedure : executes
+ScheduledSurgery "0..*" -- "1" Patient : for
+ScheduledSurgery "1" -- "1" SurgicalTeam : assigned to
+SurgicalTeam "1" -- "1" LeadSurgeon : has
+SurgicalTeam "1" -- "1" Anesthesiologist : has
+SurgicalTeam "1" -- "1..*" ScrubNurse : has
+
+@enduml
+
+/'' Snippet: snippet_10 | Domain: Healthcare Informatics | Model: Llama 3.3 70B (Groq) | Status: PASS (8/8) ''/
+@startuml
+class OperationTheatre {
+  - theatreId: String
+  - roomLocation: String
+  - sterileStatus: Boolean
+}
+
+class SurgeryProcedure {
+  - procedureCode: String
+  - procedureName: String
+  - estimatedDuration: Integer
+}
+
+class Patient {
+  - patientId: String
+}
+
+class SurgicalTeam {
+  - teamId: String
+}
+
+class LeadSurgeon {
+  - surgeonId: String
+  - role: String
+  - verified: Boolean
+}
+
+class Anesthesiologist {
+  - anesthesiologistId: String
+  - role: String
+  - verified: Boolean
+}
+
+class ScrubNurse {
+  - nurseId: String
+  - role: String
+  - verified: Boolean
+}
+
+OperationTheatre "1" -- "0..*" SurgeryProcedure
+SurgeryProcedure "1" -- "1" Patient
+SurgeryProcedure "1" -- "1" SurgicalTeam
+SurgicalTeam "1" -- "1" LeadSurgeon : leadSurgeon
+SurgicalTeam "1" -- "1" Anesthesiologist : anesthesiologist
+SurgicalTeam "1" -- "1..*" ScrubNurse : scrubNurse
+@enduml
+
+/'' Snippet: snippet_10 | Domain: Healthcare Informatics | Model: Nemotron 120B (OpenRouter) | Status: PASS (8/8) ''/
+@startuml
+class OperationTheatre {
+    - theatreId : String
+    - roomLocation : String
+    - sterileStatus : Boolean
+    + getTheatreId() : String
+    + getRoomLocation() : String
+    + getSterileStatus() : Boolean
+    + setSterileStatus(status : Boolean) : void
+}
+
+class SurgeryProcedure {
+    - procedureCode : String
+    - procedureName : String
+    - estimatedDuration : int
+    + getProcedureCode() : String
+    + getProcedureName() : String
+    + getEstimatedDuration() : int
+    + setEstimatedDuration(duration : int) : void
+}
+
+class Patient {
+    - patientId : String
+    - name : String
+    - dateOfBirth : String
+    + getPatientId() : String
+    + getName() : String
+    + getDateOfBirth() : String
+    + setName(name : String) : void
+}
+
+class SurgicalTeam {
+    - teamId : String
+    + getTeamId() : String
+    + assignLeadSurgeon(surgeon : LeadSurgeon) : void
+    + assignAnesthesiologist(anesth : Anesthesiologist) : void
+    + addScrubNurse(nurse : ScrubNurse) : void
+    + verifyChecklist() : Boolean
+}
+
+class LeadSurgeon {
+    - staffId : String
+    - name : String
+    - surgicalRole : String
+    - checklistVerified : Boolean
+    + getStaffId() : String
+    + getName() : String
+    + getSurgicalRole() : String
+    + isChecklistVerified() : Boolean
+    + setChecklistVerified(verified : Boolean) : void
+}
+
+class Anesthesiologist {
+    - staffId : String
+    - name : String
+    - surgicalRole : String
+    - checklistVerified : Boolean
+    + getStaffId() : String
+    + getName() : String
+    + getSurgicalRole() : String
+    + isChecklistVerified() : Boolean
+    + setChecklistVerified(verified : Boolean) : void
+}
+
+class ScrubNurse {
+    - staffId : String
+    - name : String
+    - surgicalRole : String
+    - checklistVerified : Boolean
+    + getStaffId() : String
+    + getName() : String
+    + getSurgicalRole() : String
+    + isChecklistVerified() : Boolean
+    + setChecklistVerified(verified : Boolean) : void
+}
+
+SurgeryProcedure "0..*" -- "1" OperationTheatre : scheduledIn >
+SurgeryProcedure "0..*" -- "1" Patient : forPatient >
+SurgeryProcedure "1" -- "1" SurgicalTeam : hasTeam >
+SurgicalTeam "1" -- "1" LeadSurgeon : hasLeadSurgeon >
+SurgicalTeam "1" -- "1" Anesthesiologist : hasAnesthesiologist >
+SurgicalTeam "1" -- "0..*" ScrubNurse : hasScrubNurse >
+@enduml
+
+/'' Snippet: snippet_11 | Domain: E-Commerce Platforms | Model: Gemini 3.5 Flash | Status: PASS (8/8) ''/
+@startuml
+skinparam classAttributeIconSize 0
+
+enum OrderStatus {
+    PENDING
+    PAID
+    SHIPPED
+    DELIVERED
+    CANCELLED
+}
+
+class Customer {
+    - customerId : String
+    - email : String
+    - shippingAddress : String
+    + getCustomerId() : String
+    + getEmail() : String
+    + getShippingAddress() : String
+}
+
+class ShoppingCart {
+    - cartId : String
+    + calculateTotal() : double
+    + clear() : void
+}
+
+class CartItem {
+    - quantity : int
+    + getQuantity() : int
+    + setQuantity(quantity : int) : void
+    + getSubtotal() : double
+}
+
+class Product {
+    - productId : String
+    - name : String
+    - unitPrice : double
+    - stockQuantity : int
+    + getProductId() : String
+    + getName() : String
+    + getUnitPrice() : double
+    + getStockQuantity() : int
+    + decreaseStock(quantity : int) : void
+}
+
+class Order {
+    - orderId : String
+    - orderDate : String
+    - orderStatus : OrderStatus
+    - totalAmount : double
+    + getOrderId() : String
+    + getOrderDate() : String
+    + getOrderStatus() : OrderStatus
+    + getTotalAmount() : double
+    + calculateTotal() : double
+}
+
+class OrderLineItem {
+    - quantity : int
+    - priceAtPurchase : double
+    + getQuantity() : int
+    + getPriceAtPurchase() : double
+    + getSubtotal() : double
+}
+
+Customer "1" -- "0..1" ShoppingCart : maintains
+Customer "1" -- "0..*" Order : places
+ShoppingCart "1" *-- "0..*" CartItem : contains
+CartItem "0..*" --> "1" Product : references
+Order "1" *-- "1..*" OrderLineItem : contains
+OrderLineItem "0..*" --> "1" Product : references
+@enduml
+
+/'' Snippet: snippet_11 | Domain: E-Commerce Platforms | Model: Llama 3.3 70B (Groq) | Status: PASS (8/8) ''/
+@startuml
+class Customer {
+  - customerId : String
+  - email : String
+  - shippingAddress : String
+  + getCustomerId() : String
+  + getEmail() : String
+  + getShippingAddress() : String
+}
+
+class ShoppingCart {
+  - cartId : String
+  + getCartId() : String
+}
+
+class CartItem {
+  - productId : String
+  - quantity : Integer
+  + getProductId() : String
+  + getQuantity() : Integer
+}
+
+class Product {
+  - productId : String
+  - name : String
+  - unitPrice : double
+  - stockQuantity : Integer
+  + getProductId() : String
+  + getName() : String
+  + getUnitPrice() : double
+  + getStockQuantity() : Integer
+}
+
+class Order {
+  - orderId : String
+  - orderDate : Date
+  - orderStatus : String
+  - totalAmount : double
+  + getOrderId() : String
+  + getOrderDate() : Date
+  + getOrderStatus() : String
+  + getTotalAmount() : double
+}
+
+class OrderLineItem {
+  - orderId : String
+  - productId : String
+  - quantity : Integer
+  + getOrderId() : String
+  + getProductId() : String
+  + getQuantity() : Integer
+}
+
+Customer "1" -- "1" ShoppingCart
+ShoppingCart "1" -- "0..*" CartItem
+CartItem "0..*" -- "1" Product
+Customer "1" -- "0..*" Order
+Order "1" -- "0..*" OrderLineItem
+OrderLineItem "0..*" -- "1" Product
+Order "1" -- "1" Customer
+@enduml
+
+/'' Snippet: snippet_11 | Domain: E-Commerce Platforms | Model: Nemotron 120B (OpenRouter) | Status: PASS (8/8) ''/
+@startuml
+class Customer {
+    - customerId : String
+    - email : String
+    - shippingAddress : String
+    + placeOrder() : Order
+}
+class ShoppingCart {
+    - cartId : String
+    + addItem(p: Product, q: int) : void
+    + removeItem(item: CartItem) : void
+    + calculateTotal() : double
+}
+class CartItem {
+    - quantity : int
+    + updateQuantity(q: int) : void
+}
+class Product {
+    - productId : String
+    - name : String
+    - unitPrice : double
+    - stockQuantity : int
+}
+class Order {
+    - orderId : String
+    - orderDate : String
+    - orderStatus : String
+    - totalAmount : double
+    + recalculateTotal() : void
+}
+class OrderLineItem {
+    - quantity : int
+    + calculateLineTotal() : double
+}
+Customer "1" -- "0..1" ShoppingCart : has >
+ShoppingCart "1" -- "0..*" CartItem : contains >
+CartItem "1" -- "1" Product : for >
+Customer "1" -- "0..*" Order : places >
+Order "1" -- "0..*" OrderLineItem : includes >
+OrderLineItem "1" -- "1" Product : for >
+@enduml
+
+/'' Snippet: snippet_12 | Domain: E-Commerce Platforms | Model: Gemini 3.5 Flash | Status: PASS (8/8) ''/
+@startuml
+skinparam classAttributeIconSize 0
+
+class Vendor {
+    - vendorId : String
+    - businessName : String
+    - rating : double
+    - taxId : String
+    + getVendorId() : String
+    + updateRating(newRating : double) : void
+}
+
+class Product {
+    - productId : String
+    - name : String
+    - description : String
+    + getProductId() : String
+    + updateDetails(name : String, desc : String) : void
+}
+
+class ProductCategory {
+    - categoryId : String
+    - categoryName : String
+    + getCategoryId() : String
+}
+
+class InventoryStock {
+    - stockId : String
+    - quantity : int
+    - price : double
+    + updateStock(amount : int) : void
+    + updatePrice(newPrice : double) : void
+}
+
+class Customer {
+    - customerId : String
+    - customerName : String
+    - email : String
+    + getCustomerId() : String
+}
+
+class Review {
+    - reviewId : String
+    - ratingScore : int
+    - commentText : String
+    - reviewDate : Date
+    + getReviewId() : String
+}
+
+Vendor "1" -- "0..*" Product : lists >
+ProductCategory "1" -- "0..*" Product : classifies >
+ProductCategory "0..1" -- "0..*" ProductCategory : parentCategory
+Product "1" -- "1" InventoryStock : tracks >
+Customer "1" -- "0..*" Review : writes >
+Product "1" -- "0..*" Review : receives >
+
+@enduml
+
+/'' Snippet: snippet_12 | Domain: E-Commerce Platforms | Model: Llama 3.3 70B (Groq) | Status: PASS (8/8) ''/
+@startuml
+class Vendor {
+  - vendorId: String
+  - businessName: String
+  - rating: double
+  - taxId: String
+  + getVendorId() : String
+  + getBusinessName() : String
+  + getRating() : double
+  + getTaxId() : String
+}
+
+class ProductCategory {
+  - categoryId: String
+  - categoryName: String
+  - parentCategory: ProductCategory
+  + getCategoryId() : String
+  + getCategoryName() : String
+  + getParentCategory() : ProductCategory
+}
+
+class Product {
+  - productId: String
+  - productName: String
+  - productDescription: String
+  - productCategory: ProductCategory
+  + getProductId() : String
+  + getProductName() : String
+  + getProductDescription() : String
+  + getProductCategory() : ProductCategory
+}
+
+class InventoryStock {
+  - inventoryId: String
+  - quantity: int
+  - product: Product
+  - vendor: Vendor
+  + getInventoryId() : String
+  + getQuantity() : int
+  + getProduct() : Product
+  + getVendor() : Vendor
+}
+
+class Review {
+  - reviewId: String
+  - ratingScore: double
+  - commentText: String
+  - reviewDate: Date
+  - product: Product
+  + getReviewId() : String
+  + getRatingScore() : double
+  + getCommentText() : String
+  + getReviewDate() : Date
+  + getProduct() : Product
+}
+
+class Customer {
+  - customerId: String
+  - customerName: String
+  + getCustomerId() : String
+  + getCustomerName() : String
+}
+
+class Order {
+  - orderId: String
+  - orderDate: Date
+  - customer: Customer
+  + getOrderId() : String
+  + getOrderDate() : Date
+  + getCustomer() : Customer
+}
+
+class OrderItem {
+  - orderItemId: String
+  - quantity: int
+  - order: Order
+  - product: Product
+  + getOrderItemId() : String
+  + getQuantity() : int
+  + getOrder() : Order
+  + getProduct() : Product
+}
+
+Vendor "1" -- "0..*" InventoryStock
+InventoryStock "1" -- "1" Product
+Product "1" -- "0..*" Review
+Review "1" -- "1" Product
+ProductCategory "1" -- "0..*" ProductCategory : subCategory
+Product "1" -- "1" ProductCategory
+Vendor "1" -- "0..*" Product
+Customer "1" -- "0..*" Order
+Order "1" -- "0..*" OrderItem
+OrderItem "1" -- "1" Order
+OrderItem "1" -- "1" Product
+
+@enduml
+
+/'' Snippet: snippet_12 | Domain: E-Commerce Platforms | Model: Nemotron 120B (OpenRouter) | Status: PASS (8/8) ''/
+@startuml
+class Vendor {
+    - vendorId : String
+    - businessName : String
+    - rating : double
+    - taxId : String
+    + getVendorId() : String
+    + setVendorId(vendorId:String) : void
+    + getBusinessName() : String
+    + setBusinessName(businessName:String) : void
+    + getRating() : double
+    + setRating(rating:double) : void
+    + getTaxId() : String
+    + setTaxId(taxId:String) : void
+}
+class Product {
+    - productId : String
+    - name : String
+    - description : String
+    + getProductId() : String
+    + setProductId(productId:String) : void
+    + getName() : String
+    + setName(name:String) : void
+    + getDescription() : String
+    + setDescription(description:String) : void
+}
+class ProductCategory {
+    - categoryId : String
+    - categoryName : String
+    + getCategoryId() : String
+    + setCategoryId(categoryId:String) : void
+    + getCategoryName() : String
+    + setCategoryName(categoryName:String) : void
+}
+class InventoryStock {
+    - quantity : int
+    - unitPrice : double
+    + getQuantity() : int
+    + setQuantity(quantity:int) : void
+    + getUnitPrice() : double
+    + setUnitPrice(unitPrice:double) : void
+}
+class Review {
+    - reviewId : String
+    - ratingScore : int
+    - commentText : String
+    - reviewDate : java.time.LocalDate
+    + getReviewId() : String
+    + setReviewId(reviewId:String) : void
+    + getRatingScore() : int
+    + setRatingScore(ratingScore:int) : void
+    + getCommentText() : String
+    + setCommentText(commentText:String) : void
+    + getReviewDate() : java.time.LocalDate
+    + setReviewDate(reviewDate:java.time.LocalDate) : void
+}
+class Customer {
+    - customerId : String
+    - name : String
+    - email : String
+    + getCustomerId() : String
+    + setCustomerId(customerId:String) : void
+    + getName() : String
+    + setName(name:String) : void
+    + getEmail() : String
+    + setEmail(email:String) : void
+}
+Vendor "1" -- "0..*" Product : lists >
+Product "0..1" -- "1" Vendor : belongsTo >
+ProductCategory "1" -- "0..*" Product : contains >
+Product "0..1" -- "1" ProductCategory : categorizedUnder >
+ProductCategory "0..1" -- "0..*" ProductCategory : parent > subcategories >
+Vendor "1" -- "0..*" InventoryStock : manages >
+Product "1" -- "0..*" InventoryStock : stockFor >
+Customer "1" -- "0..*" Review : writes >
+Product "0..1" -- "0..*" Review : reviewedFor >
+@enduml
+
+/'' Snippet: snippet_13 | Domain: E-Commerce Platforms | Model: Gemini 3.5 Flash | Status: PASS (8/8) ''/
+@startuml
+
+class Order {
+    - orderId : String
+    - totalAmount : Double
+    + initiatePayment() : void
 }
 
 class Payment {
-  amount: Float
-  paymentDate: Date
-  processPayment(): void
+    - paymentId : String
+    - amount : Double
+    - transactionTimestamp : String
+    - paymentStatus : String
+    + processPayment() : void
+    + clearTransaction() : void
 }
 
-class SystemAdministrator {
-  id: Integer
-  name: String
-  maintainPatronAccount(patron: Patron): void
-  updateMediaCatalog(mediaItem: MediaItem): void
+class CreditCardPayment {
+    - cardNumber : String
+    - cardHolder : String
+    - expiryDate : String
+    + authorizeCard() : void
 }
 
-MediaItem *--1..* Patron : reservedBy
-Patron *--1..* Payment : makes
-SystemAdministrator *--1..* Patron : maintains
-SystemAdministrator *--1..* MediaItem : updates
-Patron 1--* MediaItem : streams
+class DigitalWalletPayment {
+    - walletProvider : String
+    - userHandle : String
+    + authenticateWallet() : void
+}
+
+class Invoice {
+    - invoiceNumber : String
+    - taxAmount : Double
+    - billingDetails : String
+    + generateInvoice() : void
+}
+
+Order "1" -- "1" Payment : initiates >
+Payment "1" -- "0..1" CreditCardPayment : paidWithCard >
+Payment "1" -- "0..1" DigitalWalletPayment : paidWithWallet >
+Payment "1" -- "0..1" Invoice : generates >
+
+@enduml
+
+/'' Snippet: snippet_13 | Domain: E-Commerce Platforms | Model: Llama 3.3 70B (Groq) | Status: PASS (8/8) ''/
+@startuml
+class Order {
+  - orderId: String
+  - orderDate: Date
+  + initiatePayment(): Payment
+}
+
+class Payment {
+  - paymentId: String
+  - amount: double
+  - transactionTimestamp: Date
+  - paymentStatus: String
+  + getPaymentStatus(): String
+}
+
+class CreditCardPayment {
+  - cardNumber: String
+  - cardHolder: String
+  - expiryDate: Date
+}
+
+class DigitalWalletPayment {
+  - walletProvider: String
+  - userHandle: String
+}
+
+class Invoice {
+  - invoiceNumber: String
+  - taxAmount: double
+  - billingDetails: String
+  + getInvoiceDetails(): String
+}
+
+Order "1" -- "0..*" Payment
+Payment "0..*" -- "1" Order
+Payment "1" -- "0..1" CreditCardPayment
+Payment "1" -- "0..1" DigitalWalletPayment
+Payment "1" -- "0..1" Invoice
+CreditCardPayment "0..*" -- "0..1" Payment : paymentMethod
+DigitalWalletPayment "0..*" -- "0..1" Payment : paymentMethod
+Invoice "0..*" -- "0..1" Payment : transaction
+@enduml
+
+/'' Snippet: snippet_13 | Domain: E-Commerce Platforms | Model: Nemotron 120B (OpenRouter) | Status: PASS (8/8) ''/
+@startuml
+abstract class Payment {
+  - paymentId : String
+  - amount : Double
+  - transactionTimestamp : String
+  - paymentStatus : String
+  + process() : boolean
+}
+class CreditCardPayment {
+  - cardNumber : String
+  - cardHolder : String
+  - expiryDate : String
+  + validate() : boolean
+}
+class DigitalWalletPayment {
+  - walletProvider : String
+  - userHandle : String
+  + authenticate() : boolean
+}
+class Order {
+  - orderId : String
+  - orderTimestamp : String
+  - totalAmount : Double
+  + placeOrder() : void
+  + createPayment(p : Payment) : void
+}
+class Invoice {
+  - invoiceNumber : String
+  - taxAmount : Double
+  - billingDetails : String
+  + generate() : void
+}
+Order "1" -- "1" Payment : initiates >
+Payment "1" --|> "1" CreditCardPayment
+Payment "1" --|> "1" DigitalWalletPayment
+Payment "1" -- "0..1" Invoice : cleared >
+Order "1" -- "0..1" Invoice : generates >
+@enduml
+
+/'' Snippet: snippet_14 | Domain: E-Commerce Platforms | Model: Gemini 3.5 Flash | Status: PASS (8/8) ''/
+@startuml
+skinparam classAttributeIconSize 0
+
+class Order {
+    - orderId : String
+    - status : String
+    - packedDate : Date
+    + packOrder() : void
+    + getDetails() : String
+}
+
+class Shipment {
+    - trackingNumber : String
+    - carrierName : String
+    - dispatchDate : Date
+    - estimatedDeliveryDate : Date
+    + createShipment() : Shipment
+    + updateStatus(status : String) : void
+}
+
+class TrackingCheckpoint {
+    - timestamp : DateTime
+    - facilityLocation : String
+    - eventDescription : String
+    - updateStatus : String
+    + getCheckpointDetails() : String
+}
+
+class CourierAgent {
+    - agentId : String
+    - contactNumber : String
+    - assignedVehicle : String
+    + handoverToCustomer(trackingNumber : String) : void
+    + updateDeliveryStatus(status : String) : void
+}
+
+Order "1" -- "0..1" Shipment : generates >
+Shipment "1" *-- "0..*" TrackingCheckpoint : consists of >
+CourierAgent "0..1" -- "0..*" Shipment : delivers >
+
+@enduml
+
+/'' Snippet: snippet_14 | Domain: E-Commerce Platforms | Model: Llama 3.3 70B (Groq) | Status: PASS (8/8) ''/
+@startuml
+class Order {
+  - orderId: String
+  - orderDate: Date
+  + packShipment(): Shipment
+}
+
+class Shipment {
+  - trackingNumber: String
+  - carrierName: String
+  - dispatchDate: Date
+  - estimatedDeliveryDate: Date
+  + updateDeliveryStatus(): void
+}
+
+class TrackingCheckpoint {
+  - timestamp: Date
+  - facilityLocation: String
+  - eventDescription: String
+  - updateStatus: String
+}
+
+class CourierAgent {
+  - agentId: String
+  - contactNumber: String
+  - assignedVehicle: String
+  + handoverToCustomer(): void
+}
+
+Order "1" -- "0..*" Shipment
+Shipment "1" -- "0..*" TrackingCheckpoint
+CourierAgent "1" -- "0..*" Shipment : updates
+Shipment "0..*" -- "1" CourierAgent : handledBy
+@enduml
+
+/'' Snippet: snippet_14 | Domain: E-Commerce Platforms | Model: Nemotron 120B (OpenRouter) | Status: PASS (8/8) ''/
+@startuml
+class Order {
+    - orderId : String
+    - customerId : String
+    - orderDate : Date
+    - totalAmount : double
+    + placeOrder() : void
+    + pack() : Shipment
+}
+class Shipment {
+    - trackingNumber : String
+    - carrierName : String
+    - dispatchDate : Date
+    - estimatedDeliveryDate : Date
+    + generateTrackingNumber() : String
+    + updateEstimatedDeliveryDate(newDate : Date) : void
+}
+class TrackingCheckpoint {
+    - timestamp : DateTime
+    - facilityLocation : String
+    - eventDescription : String
+    - updateStatus : String
+    + logEvent() : void
+}
+class CourierAgent {
+    - agentId : String
+    - contactNumber : String
+    - assignedVehicle : String
+    + handoverToCustomer(s : Shipment) : void
+    + updateStatus() : void
+}
+Order "1" -- "0..1" Shipment : creates >
+Shipment "1" -- "0..*" TrackingCheckpoint : contains >
+CourierAgent "0..*" -- "0..*" Shipment : updates >
+@enduml
+
+/'' Snippet: snippet_15 | Domain: E-Commerce Platforms | Model: Gemini 3.5 Flash | Status: PASS (8/8) ''/
+@startuml
+skinparam classAttributeIconSize 0
+
+class Customer {
+    - customerId : String
+    - name : String
+    - email : String
+    + getCustomerId() : String
+    + getName() : String
+    + getLoyaltyPoints() : LoyaltyPoints
+    + addPoints(points : int) : void
+}
+
+class LoyaltyPoints {
+    - balance : int
+    - tierLevel : String
+    + getBalance() : int
+    + getTierLevel() : String
+    + addPoints(amount : int) : void
+    + deductPoints(amount : int) : boolean
+    + updateTier() : void
+}
+
+class CouponCode {
+    - code : String
+    - discountPercentage : double
+    - minimumOrderValue : double
+    - validUntil : Date
+    - isActive : boolean
+    + getCode() : String
+    + getDiscountPercentage() : double
+    + getMinimumOrderValue() : double
+    + getValidUntil() : Date
+    + isValid(orderValue : double, currentDate : Date) : boolean
+    + calculateDiscount(orderValue : double) : double
+}
+
+class Order {
+    - orderId : String
+    - originalAmount : double
+    - discountAmount : double
+    - finalAmount : double
+    - orderDate : Date
+    - status : String
+    + getOrderId() : String
+    + getOriginalAmount() : double
+    + getDiscountAmount() : double
+    + getFinalAmount() : double
+    + setDiscountAmount(amount : double) : void
+    + setFinalAmount(amount : double) : void
+}
+
+class RetentionService {
+    - serviceId : String
+    + validateAndApplyCoupon(order : Order, coupon : CouponCode) : boolean
+    + recalculateDiscounts(order : Order, coupon : CouponCode) : void
+    + calculateLoyaltyAccrual(order : Order) : int
+    + processCheckout(order : Order, customer : Customer, coupon : CouponCode) : void
+}
+
+' Relationships with explicit multiplicity bounds on both ends
+Customer "1" -- "1" LoyaltyPoints
+Customer "1" -- "0..*" Order
+Order "0..*" -- "0..1" CouponCode
+RetentionService "1" -- "0..*" Customer
+RetentionService "1" -- "0..*" CouponCode
+
+' Self-association with explicit multiplicity bounds and a role label
+Customer "0..1" -- "0..*" Customer : refers (role: referrer) >
+
+@enduml
+
+/'' Snippet: snippet_15 | Domain: E-Commerce Platforms | Model: Llama 3.3 70B (Groq) | Status: PASS (8/8) ''/
+@startuml
+class Customer {
+  - customerId : String
+  - loyaltyPoints : LoyaltyPoints
+  + applyCouponCode(couponCode : CouponCode, order : Order) : void
+  + calculateLoyaltyPoints(order : Order) : void
+}
+
+class Order {
+  - orderId : String
+  - orderValue : double
+  - discount : double
+  - couponCode : CouponCode
+  + calculateTotal() : double
+  + applyDiscount(couponCode : CouponCode) : void
+}
+
+class CouponCode {
+  - code : String
+  - discountPercentage : double
+  - minimumOrderValue : double
+  - validUntil : Date
+  + isValid(order : Order) : boolean
+}
+
+class LoyaltyPoints {
+  - balance : int
+  - tierLevel : String
+  + updateBalance(points : int) : void
+  + updateTierLevel() : void
+}
+
+Customer "1" -- "0..*" Order
+Customer "1" -- "1" LoyaltyPoints
+Order "0..*" -- "1" CouponCode : applies
+CouponCode "1" -- "0..*" Order : appliedTo
+Customer "1" -- "0..*" LoyaltyPoints : earns
+LoyaltyPoints "1" -- "1" Customer : belongsTo
+@enduml
+
+/'' Snippet: snippet_15 | Domain: E-Commerce Platforms | Model: Nemotron 120B (OpenRouter) | Status: PASS (8/8) ''/
+@startuml
+class Customer {
+    - customerId : String
+    - name : String
+    - email : String
+    + earnPoints(o: Order) : void
+    + applyCoupon(c: CouponCode, o: Order) : boolean
+    + getLoyaltyPoints() : LoyaltyPoints
+}
+class LoyaltyPoints {
+    - balance : int
+    - tierLevel : String
+    + addPoints(p: int) : void
+    + redeemPoints(p: int) : boolean
+    + getBalance() : int
+    + getTierLevel() : String
+}
+class CouponCode {
+    - code : String
+    - discountPercentage : double
+    - minimumOrderValue : double
+    - validUntil : String
+    + isValid(orderValue: double, currentDate: String) : boolean
+    + getDiscountPercentage() : double
+}
+class Order {
+    - orderId : String
+    - orderDate : String
+    - totalAmount : double
+    - finalAmount : double
+    - loyaltyPointsEarned : int
+    + calculateTotal() : double
+    + applyCoupon(c: CouponCode) : boolean
+    + calculatePointsEarned() : int
+    + getFinalAmount() : double
+}
+Customer "1" -- "1" LoyaltyPoints
+Customer "1" -- "0..*" Order
+Order "0..1" -- "0..*" CouponCode
 @enduml
 
