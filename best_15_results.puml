@@ -1,0 +1,903 @@
+' ==========================================================
+' SNIPPET: snippet_01 | DOMAIN: Library Management
+' WINNING MODEL: Llama 3.3 70B (Groq)
+' OCL ACCURACY: 100.0% (8/8) | RICHNESS SCORE: 106
+' LOOPS USED: 0 | INITIAL ERRORS: 0
+' ==========================================================
+@startuml
+class Library {
+  - bookItems : BookItem*
+  - patrons : Patron*
+  - librarians : Librarian*
+  + manageBookInventory() : void
+  + processLoans() : void
+}
+
+class Book {
+  - title : String
+  - isbn : String
+  - publicationYear : int
+  - bookItems : BookItem*
+  + getBookItems() : BookItem*
+  + addBookItem(bookItem : BookItem) : void
+}
+
+class BookItem {
+  - barcodeId : String
+  - status : String
+  - book : Book
+  - loans : Loan*
+  + getLoanHistory() : Loan*
+  + updateStatus(status : String) : void
+}
+
+class Patron {
+  - memberId : String
+  - name : String
+  - membershipDate : Date
+  - loans : Loan*
+  + borrowBookItem(bookItem : BookItem) : Loan
+  + returnBookItem(bookItem : BookItem) : void
+}
+
+class Loan {
+  - checkoutDate : Date
+  - dueDate : Date
+  - returnDate : Date
+  - bookItem : BookItem
+  - patron : Patron
+  + getFine() : double
+  + updateReturnDate(returnDate : Date) : void
+}
+
+class Librarian {
+  - librarianId : String
+  - name : String
+  - library : Library
+  + processLoan(loan : Loan) : void
+  + manageBookInventory() : void
+}
+
+Library "1" -- "0..*" BookItem
+Book "1" -- "0..*" BookItem : contains
+BookItem "0..*" -- "1" Book : partOf
+Patron "1" -- "0..5" Loan : borrows
+Loan "1" -- "1" BookItem : references
+Loan "1" -- "1" Patron : associatedWith
+Librarian "1" -- "1" Library : manages
+Library "1" -- "0..*" Patron : registers
+Library "1" -- "0..*" Librarian : employs
+@enduml
+
+' ==========================================================
+' SNIPPET: snippet_02 | DOMAIN: Library Management
+' WINNING MODEL: Llama 3.3 70B (Groq)
+' OCL ACCURACY: 100.0% (8/8) | RICHNESS SCORE: 84
+' LOOPS USED: 0 | INITIAL ERRORS: 0
+' ==========================================================
+@startuml
+class DigitalResource {
+  - resourceId: String
+  - title: String
+  - licenseExpiry: Date
+  - fileSize: Integer
+  + getAvailability() : Boolean
+  + reserve(patron: Patron) : Reservation
+}
+
+class Reservation {
+  - reservationDate: Date
+  - priorityStatus: String
+  + getPriorityStatus() : String
+  + expire() : void
+}
+
+class Patron {
+  - patronId: String
+  - name: String
+  + reserveResource(resource: DigitalResource) : Reservation
+}
+
+class Student extends Patron {
+  - studentId: String
+  - major: String
+}
+
+class Faculty extends Patron {
+  - facultyId: String
+  - department: String
+}
+
+class NotificationLog {
+  - logId: Integer
+  - logDate: Date
+  - message: String
+  + addLog(message: String) : void
+}
+
+DigitalResource "1" -- "0..*" Reservation
+Reservation "1" -- "1" DigitalResource
+Reservation "1" -- "1" Patron
+Patron "1" -- "0..*" Reservation
+Student "0..*" -- "1" Faculty : advisor
+Faculty "1" -- "0..*" Student : advisee
+NotificationLog "1" -- "0..*" Reservation : logs
+Reservation "0..*" -- "1" NotificationLog : notifies
+@enduml
+
+' ==========================================================
+' SNIPPET: snippet_03 | DOMAIN: Library Management
+' WINNING MODEL: Llama 3.3 70B (Groq)
+' OCL ACCURACY: 100.0% (8/8) | RICHNESS SCORE: 104
+' LOOPS USED: 0 | INITIAL ERRORS: 0
+' ==========================================================
+@startuml
+class Patron {
+  - patronId: String
+  - name: String
+  + getPatronId() : String
+  + getName() : String
+}
+
+class BookItem {
+  - bookItemId: String
+  - title: String
+  + getBookItemId() : String
+  + getTitle() : String
+}
+
+class Loan {
+  - loanId: String
+  - dueDate: Date
+  + getLoanId() : String
+  + getDueDate() : Date
+}
+
+class OverdueFine {
+  - fineId: String
+  - calculationDate: Date
+  - amountPerDay: double
+  - totalAmount: double
+  - paidStatus: Boolean
+  + getFineId() : String
+  + getCalculationDate() : Date
+  + getAmountPerDay() : double
+  + getTotalAmount() : double
+  + getPaidStatus() : Boolean
+}
+
+class Payment {
+  - paymentId: String
+  - amountPaid: double
+  - transactionDate: Date
+  - paymentMethod: String
+  + getPaymentId() : String
+  + getAmountPaid() : double
+  + getTransactionDate() : Date
+  + getPaymentMethod() : String
+}
+
+Patron "1" -- "0..*" Loan
+Loan "1" -- "0..*" OverdueFine
+OverdueFine "1" -- "0..*" Payment : settles
+Payment "1" -- "0..*" OverdueFine : pays
+Patron "1" -- "0..*" OverdueFine : incurs
+Librarian "1" -- "0..*" Patron : manages
+Librarian "1" -- "0..*" OverdueFine : waives
+Librarian "1" -- "0..*" Patron : suspends
+
+class Librarian {
+  - librarianId: String
+  - name: String
+  + getLibrarianId() : String
+  + getName() : String
+}
+
+OverdueFine "0..*" -- "1" OverdueFine : nextFine
+@enduml
+
+' ==========================================================
+' SNIPPET: snippet_04 | DOMAIN: Library Management
+' WINNING MODEL: Llama 3.3 70B (Groq)
+' OCL ACCURACY: 100.0% (8/8) | RICHNESS SCORE: 77
+' LOOPS USED: 0 | INITIAL ERRORS: 0
+' ==========================================================
+@startuml
+class Branch {
+  - branchId: String
+  - branchName: String
+  - location: String
+  + getBranchId() : String
+  + getBranchName() : String
+  + getLocation() : String
+}
+
+class CentralCatalog {
+  + coordinateInterLibraryLoan() : void
+}
+
+class Patron {
+  - patronId: String
+  - name: String
+  + getPatronId() : String
+  + getName() : String
+}
+
+class InterLibraryTransfer {
+  - transferId: String
+  - dispatchDate: Date
+  - arrivalDate: Date
+  - shippingStatus: String
+  + getTransferId() : String
+  + getDispatchDate() : Date
+  + getArrivalDate() : Date
+  + getShippingStatus() : String
+  + updateShippingStatus(newStatus: String) : void
+}
+
+class Book {
+  - bookId: String
+  - title: String
+  + getBookId() : String
+  + getTitle() : String
+}
+
+CentralCatalog "1" -- "0..*" Branch
+Patron "1" -- "0..*" InterLibraryTransfer
+Branch "1" -- "0..*" InterLibraryTransfer
+InterLibraryTransfer "1" -- "1" Book
+InterLibraryTransfer "1" -- "1" Branch : sendingBranch
+InterLibraryTransfer "1" -- "1" Branch : receivingBranch
+Branch "0..*" -- "0..*" InterLibraryTransfer : updatesTransfer
+@enduml
+
+' ==========================================================
+' SNIPPET: snippet_05 | DOMAIN: Library Management
+' WINNING MODEL: Llama 3.3 70B (Groq)
+' OCL ACCURACY: 100.0% (8/8) | RICHNESS SCORE: 68
+' LOOPS USED: 0 | INITIAL ERRORS: 0
+' ==========================================================
+@startuml
+class Author {
+  - authorId : String
+  - fullName : String
+  - nationality : String
+  + getAuthorId() : String
+  + getFullName() : String
+  + getNationality() : String
+}
+
+class Book {
+  - bookId : String
+  - title : String
+  - publicationYear : Integer
+  + getBookId() : String
+  + getTitle() : String
+  + getPublicationYear() : Integer
+}
+
+class RareManuscript {
+  - preservationCondition : String
+  - restorationHistory : String
+  - restrictedAccessLevel : String
+  + getPreservationCondition() : String
+  + getRestorationHistory() : String
+  + getRestrictedAccessLevel() : String
+}
+
+class SubjectCategory {
+  - categoryCode : String
+  - categoryName : String
+  - deweyDecimalNumber : String
+  + getCategoryCode() : String
+  + getCategoryName() : String
+  + getDeweyDecimalNumber() : String
+}
+
+Author "1" -- "0..*" Book
+Book "0..*" -- "1" SubjectCategory
+SubjectCategory "0..*" -- "0..*" SubjectCategory : subCategory > parentCategory
+Book "1" -- "0..*" RareManuscript : inherits
+@enduml
+
+' ==========================================================
+' SNIPPET: snippet_06 | DOMAIN: Healthcare Informatics
+' WINNING MODEL: Llama 3.3 70B (Groq)
+' OCL ACCURACY: 100.0% (8/8) | RICHNESS SCORE: 106
+' LOOPS USED: 0 | INITIAL ERRORS: 0
+' ==========================================================
+@startuml
+class Patient {
+  - patientId : String
+  - legalName : String
+  - dateOfBirth : Date
+  - bloodGroup : String
+  + getPatientId() : String
+  + getLegalName() : String
+  + getDateOfBirth() : Date
+  + getBloodGroup() : String
+}
+
+class Doctor {
+  - employeeId : String
+  - fullName : String
+  - specialization : String
+  - licenseNumber : String
+  + getEmployeeId() : String
+  + getFullName() : String
+  + getSpecialization() : String
+  + getLicenseNumber() : String
+}
+
+class MedicalRecord {
+  - medicalRecordId : String
+  - creationDate : Date
+  + getMedicalRecordId() : String
+  + getCreationDate() : Date
+}
+
+class ClinicalNote {
+  - noteId : String
+  - noteDate : Date
+  - noteText : String
+  + getNoteId() : String
+  + getNoteDate() : Date
+  + getNoteText() : String
+}
+
+class AllergyRecord {
+  - allergyId : String
+  - allergyName : String
+  - severityLevel : String
+  + getAllergyId() : String
+  + getAllergyName() : String
+  + getSeverityLevel() : String
+}
+
+class DiagnosticReport {
+  - reportId : String
+  - reportDate : Date
+  - reportText : String
+  + getReportId() : String
+  + getReportDate() : Date
+  + getReportText() : String
+}
+
+Patient "1" -- "1" Doctor
+Patient "1" -- "1..*" MedicalRecord
+MedicalRecord "1" -- "0..*" ClinicalNote
+MedicalRecord "1" -- "0..*" AllergyRecord
+MedicalRecord "1" -- "0..*" DiagnosticReport
+Doctor "1" -- "0..*" DiagnosticReport : creates
+
+@enduml
+
+' ==========================================================
+' SNIPPET: snippet_07 | DOMAIN: Healthcare Informatics
+' WINNING MODEL: Llama 3.3 70B (Groq)
+' OCL ACCURACY: 100.0% (8/8) | RICHNESS SCORE: 93
+' LOOPS USED: 0 | INITIAL ERRORS: 0
+' ==========================================================
+@startuml
+class Ward {
+  - wardNumber : String
+  - department : String
+  - capacity : int
+  + getWardNumber() : String
+  + getDepartment() : String
+  + getCapacity() : int
+}
+
+class Bed {
+  - bedId : String
+  - roomNumber : String
+  - isOccupied : boolean
+  + getBedId() : String
+  + getRoomNumber() : String
+  + getIsOccupied() : boolean
+  + occupy() : void
+  + vacate() : void
+}
+
+class Patient {
+  - patientId : String
+  - name : String
+  + getPatientId() : String
+  + getName() : String
+}
+
+class Admission {
+  - admissionId : String
+  - admissionDate : Date
+  - dischargeDate : Date
+  - admittingDoctor : String
+  - diagnosisSummary : String
+  + getAdmissionId() : String
+  + getAdmissionDate() : Date
+  + getDischargeDate() : Date
+  + getAdmittingDoctor() : String
+  + getDiagnosisSummary() : String
+}
+
+class Nurse {
+  - staffId : String
+  - shiftTiming : String
+  + getStaffId() : String
+  + getShiftTiming() : String
+}
+
+Ward "1" -- "0..*" Bed
+Patient "1" -- "0..*" Admission
+Admission "1" -- "1" Patient
+Admission "1" -- "1" Bed
+Bed "0..*" -- "0..*" Nurse : monitors
+Nurse "0..*" -- "0..*" Bed : assignedTo
+Patient "1" -- "1" Bed : assignedTo
+@enduml
+
+' ==========================================================
+' SNIPPET: snippet_08 | DOMAIN: Healthcare Informatics
+' WINNING MODEL: Llama 3.3 70B (Groq)
+' OCL ACCURACY: 100.0% (8/8) | RICHNESS SCORE: 77
+' LOOPS USED: 0 | INITIAL ERRORS: 0
+' ==========================================================
+@startuml
+class Doctor {
+  - doctorId: String
+  - name: String
+  + prescribe() : Prescription
+}
+
+class Patient {
+  - patientId: String
+  - name: String
+}
+
+class Prescription {
+  - prescriptionId: String
+  - prescriptionDate: Date
+  - dosageInstructions: String
+  + getPrescriptionItems() : List[PrescriptionItem]
+}
+
+class PrescriptionItem {
+  - itemId: String
+  - quantity: Integer
+  + getMedication() : Medication
+}
+
+class Medication {
+  - code: String
+  - brandName: String
+  - genericFormula: String
+  - unitStrength: String
+}
+
+class Pharmacist {
+  - pharmacistId: String
+  - name: String
+  + dispense() : DispensationLog
+}
+
+class DispensationLog {
+  - logId: String
+  - timestamp: Date
+  - verificationSignoff: String
+}
+
+Doctor "1" -- "0..*" Prescription
+Patient "1" -- "0..*" Prescription
+Prescription "1" -- "0..*" PrescriptionItem
+PrescriptionItem "1" -- "1" Medication
+Pharmacist "1" -- "0..*" DispensationLog
+DispensationLog "1" -- "1" Prescription
+@enduml
+
+' ==========================================================
+' SNIPPET: snippet_09 | DOMAIN: Healthcare Informatics
+' WINNING MODEL: Llama 3.3 70B (Groq)
+' OCL ACCURACY: 100.0% (8/8) | RICHNESS SCORE: 63
+' LOOPS USED: 0 | INITIAL ERRORS: 0
+' ==========================================================
+@startuml
+class Patient {
+  - patientId: String
+  - name: String
+  + scheduleAppointment(appointmentId: String, scheduledTime: Date, appointmentType: String): Appointment
+}
+
+class Doctor {
+  - doctorId: String
+  - name: String
+}
+
+class Appointment {
+  - appointmentId: String
+  - scheduledTime: Date
+  - appointmentType: String
+  - status: String
+  + book(): void
+  + complete(): void
+  + cancel(): void
+}
+
+class TriageNurse {
+  - nurseId: String
+  - name: String
+  + recordVitalSigns(appointment: Appointment, systolicBP: int, diastolicBP: int, heartRate: int, temperature: double, pulseOximetry: double): VitalSignsSheet
+}
+
+class VitalSignsSheet {
+  - systolicBP: int
+  - diastolicBP: int
+  - heartRate: int
+  - temperature: double
+  - pulseOximetry: double
+}
+
+Patient "1" -- "0..*" Appointment
+Doctor "1" -- "0..*" Appointment
+TriageNurse "1" -- "0..*" VitalSignsSheet
+Appointment "1" -- "0..1" VitalSignsSheet
+@enduml
+
+' ==========================================================
+' SNIPPET: snippet_10 | DOMAIN: Healthcare Informatics
+' WINNING MODEL: Llama 3.3 70B (Groq)
+' OCL ACCURACY: 100.0% (8/8) | RICHNESS SCORE: 67
+' LOOPS USED: 0 | INITIAL ERRORS: 0
+' ==========================================================
+@startuml
+class OperationTheatre {
+  - theatreId: String
+  - roomLocation: String
+  - sterileStatus: Boolean
+}
+
+class SurgeryProcedure {
+  - procedureCode: String
+  - procedureName: String
+  - estimatedDuration: Integer
+}
+
+class Patient {
+  - patientId: String
+}
+
+class SurgicalTeam {
+  - teamId: String
+}
+
+class LeadSurgeon {
+  - surgeonId: String
+  - role: String
+  - verified: Boolean
+}
+
+class Anesthesiologist {
+  - anesthesiologistId: String
+  - role: String
+  - verified: Boolean
+}
+
+class ScrubNurse {
+  - nurseId: String
+  - role: String
+  - verified: Boolean
+}
+
+OperationTheatre "1" -- "0..*" SurgeryProcedure
+SurgeryProcedure "1" -- "1" Patient
+SurgeryProcedure "1" -- "1" SurgicalTeam
+SurgicalTeam "1" -- "1" LeadSurgeon : leadSurgeon
+SurgicalTeam "1" -- "1" Anesthesiologist : anesthesiologist
+SurgicalTeam "1" -- "1..*" ScrubNurse : scrubNurse
+@enduml
+
+' ==========================================================
+' SNIPPET: snippet_11 | DOMAIN: E-Commerce Platforms
+' WINNING MODEL: Llama 3.3 70B (Groq)
+' OCL ACCURACY: 100.0% (8/8) | RICHNESS SCORE: 100
+' LOOPS USED: 0 | INITIAL ERRORS: 0
+' ==========================================================
+@startuml
+class Customer {
+  - customerId : String
+  - email : String
+  - shippingAddress : String
+  + getCustomerId() : String
+  + getEmail() : String
+  + getShippingAddress() : String
+}
+
+class ShoppingCart {
+  - cartId : String
+  + getCartId() : String
+}
+
+class CartItem {
+  - productId : String
+  - quantity : Integer
+  + getProductId() : String
+  + getQuantity() : Integer
+}
+
+class Product {
+  - productId : String
+  - name : String
+  - unitPrice : double
+  - stockQuantity : Integer
+  + getProductId() : String
+  + getName() : String
+  + getUnitPrice() : double
+  + getStockQuantity() : Integer
+}
+
+class Order {
+  - orderId : String
+  - orderDate : Date
+  - orderStatus : String
+  - totalAmount : double
+  + getOrderId() : String
+  + getOrderDate() : Date
+  + getOrderStatus() : String
+  + getTotalAmount() : double
+}
+
+class OrderLineItem {
+  - orderId : String
+  - productId : String
+  - quantity : Integer
+  + getOrderId() : String
+  + getProductId() : String
+  + getQuantity() : Integer
+}
+
+Customer "1" -- "1" ShoppingCart
+ShoppingCart "1" -- "0..*" CartItem
+CartItem "0..*" -- "1" Product
+Customer "1" -- "0..*" Order
+Order "1" -- "0..*" OrderLineItem
+OrderLineItem "0..*" -- "1" Product
+Order "1" -- "1" Customer
+@enduml
+
+' ==========================================================
+' SNIPPET: snippet_12 | DOMAIN: E-Commerce Platforms
+' WINNING MODEL: Llama 3.3 70B (Groq)
+' OCL ACCURACY: 100.0% (8/8) | RICHNESS SCORE: 162
+' LOOPS USED: 0 | INITIAL ERRORS: 0
+' ==========================================================
+@startuml
+class Vendor {
+  - vendorId: String
+  - businessName: String
+  - rating: double
+  - taxId: String
+  + getVendorId() : String
+  + getBusinessName() : String
+  + getRating() : double
+  + getTaxId() : String
+}
+
+class ProductCategory {
+  - categoryId: String
+  - categoryName: String
+  - parentCategory: ProductCategory
+  + getCategoryId() : String
+  + getCategoryName() : String
+  + getParentCategory() : ProductCategory
+}
+
+class Product {
+  - productId: String
+  - productName: String
+  - productDescription: String
+  - productCategory: ProductCategory
+  + getProductId() : String
+  + getProductName() : String
+  + getProductDescription() : String
+  + getProductCategory() : ProductCategory
+}
+
+class InventoryStock {
+  - inventoryId: String
+  - quantity: int
+  - product: Product
+  - vendor: Vendor
+  + getInventoryId() : String
+  + getQuantity() : int
+  + getProduct() : Product
+  + getVendor() : Vendor
+}
+
+class Review {
+  - reviewId: String
+  - ratingScore: double
+  - commentText: String
+  - reviewDate: Date
+  - product: Product
+  + getReviewId() : String
+  + getRatingScore() : double
+  + getCommentText() : String
+  + getReviewDate() : Date
+  + getProduct() : Product
+}
+
+class Customer {
+  - customerId: String
+  - customerName: String
+  + getCustomerId() : String
+  + getCustomerName() : String
+}
+
+class Order {
+  - orderId: String
+  - orderDate: Date
+  - customer: Customer
+  + getOrderId() : String
+  + getOrderDate() : Date
+  + getCustomer() : Customer
+}
+
+class OrderItem {
+  - orderItemId: String
+  - quantity: int
+  - order: Order
+  - product: Product
+  + getOrderItemId() : String
+  + getQuantity() : int
+  + getOrder() : Order
+  + getProduct() : Product
+}
+
+Vendor "1" -- "0..*" InventoryStock
+InventoryStock "1" -- "1" Product
+Product "1" -- "0..*" Review
+Review "1" -- "1" Product
+ProductCategory "1" -- "0..*" ProductCategory : subCategory
+Product "1" -- "1" ProductCategory
+Vendor "1" -- "0..*" Product
+Customer "1" -- "0..*" Order
+Order "1" -- "0..*" OrderItem
+OrderItem "1" -- "1" Order
+OrderItem "1" -- "1" Product
+
+@enduml
+
+' ==========================================================
+' SNIPPET: snippet_13 | DOMAIN: E-Commerce Platforms
+' WINNING MODEL: Llama 3.3 70B (Groq)
+' OCL ACCURACY: 100.0% (8/8) | RICHNESS SCORE: 65
+' LOOPS USED: 0 | INITIAL ERRORS: 0
+' ==========================================================
+@startuml
+class Order {
+  - orderId: String
+  - orderDate: Date
+  + initiatePayment(): Payment
+}
+
+class Payment {
+  - paymentId: String
+  - amount: double
+  - transactionTimestamp: Date
+  - paymentStatus: String
+  + getPaymentStatus(): String
+}
+
+class CreditCardPayment {
+  - cardNumber: String
+  - cardHolder: String
+  - expiryDate: Date
+}
+
+class DigitalWalletPayment {
+  - walletProvider: String
+  - userHandle: String
+}
+
+class Invoice {
+  - invoiceNumber: String
+  - taxAmount: double
+  - billingDetails: String
+  + getInvoiceDetails(): String
+}
+
+Order "1" -- "0..*" Payment
+Payment "0..*" -- "1" Order
+Payment "1" -- "0..1" CreditCardPayment
+Payment "1" -- "0..1" DigitalWalletPayment
+Payment "1" -- "0..1" Invoice
+CreditCardPayment "0..*" -- "0..1" Payment : paymentMethod
+DigitalWalletPayment "0..*" -- "0..1" Payment : paymentMethod
+Invoice "0..*" -- "0..1" Payment : transaction
+@enduml
+
+' ==========================================================
+' SNIPPET: snippet_14 | DOMAIN: E-Commerce Platforms
+' WINNING MODEL: Llama 3.3 70B (Groq)
+' OCL ACCURACY: 100.0% (8/8) | RICHNESS SCORE: 52
+' LOOPS USED: 0 | INITIAL ERRORS: 0
+' ==========================================================
+@startuml
+class Order {
+  - orderId: String
+  - orderDate: Date
+  + packShipment(): Shipment
+}
+
+class Shipment {
+  - trackingNumber: String
+  - carrierName: String
+  - dispatchDate: Date
+  - estimatedDeliveryDate: Date
+  + updateDeliveryStatus(): void
+}
+
+class TrackingCheckpoint {
+  - timestamp: Date
+  - facilityLocation: String
+  - eventDescription: String
+  - updateStatus: String
+}
+
+class CourierAgent {
+  - agentId: String
+  - contactNumber: String
+  - assignedVehicle: String
+  + handoverToCustomer(): void
+}
+
+Order "1" -- "0..*" Shipment
+Shipment "1" -- "0..*" TrackingCheckpoint
+CourierAgent "1" -- "0..*" Shipment : updates
+Shipment "0..*" -- "1" CourierAgent : handledBy
+@enduml
+
+' ==========================================================
+' SNIPPET: snippet_15 | DOMAIN: E-Commerce Platforms
+' WINNING MODEL: Llama 3.3 70B (Groq)
+' OCL ACCURACY: 100.0% (8/8) | RICHNESS SCORE: 62
+' LOOPS USED: 0 | INITIAL ERRORS: 0
+' ==========================================================
+@startuml
+class Customer {
+  - customerId : String
+  - loyaltyPoints : LoyaltyPoints
+  + applyCouponCode(couponCode : CouponCode, order : Order) : void
+  + calculateLoyaltyPoints(order : Order) : void
+}
+
+class Order {
+  - orderId : String
+  - orderValue : double
+  - discount : double
+  - couponCode : CouponCode
+  + calculateTotal() : double
+  + applyDiscount(couponCode : CouponCode) : void
+}
+
+class CouponCode {
+  - code : String
+  - discountPercentage : double
+  - minimumOrderValue : double
+  - validUntil : Date
+  + isValid(order : Order) : boolean
+}
+
+class LoyaltyPoints {
+  - balance : int
+  - tierLevel : String
+  + updateBalance(points : int) : void
+  + updateTierLevel() : void
+}
+
+Customer "1" -- "0..*" Order
+Customer "1" -- "1" LoyaltyPoints
+Order "0..*" -- "1" CouponCode : applies
+CouponCode "1" -- "0..*" Order : appliedTo
+Customer "1" -- "0..*" LoyaltyPoints : earns
+LoyaltyPoints "1" -- "1" Customer : belongsTo
+@enduml
+
