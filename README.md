@@ -26,7 +26,7 @@ Large Language Models (LLMs) often generate UML class diagrams that exhibit synt
 - `select_best_diagrams.py` — Arbitrates candidate diagrams using post-repair OSR, structural richness ($\mathcal{S}_R$), and parsimony.
 - `nl-snippets.txt` — 15 benchmark natural language specifications across 3 distinct domains (Library Management, Healthcare Informatics, and E-Commerce).
 - `reference_models/` — 15 human-authored reference PlantUML diagrams constructed independently by software engineering experts.
-- `TAXONOMY_EXAMPLES.md` — Detailed three-tier structural violation taxonomy with concrete PlantUML snippets, AST diagnostic logs, and repair transformations.
+- `OCL Violation Taxonomy-Examples.md` — Detailed three-tier structural violation taxonomy with concrete PlantUML snippets, AST diagnostic logs, and repair transformations.
 - `experiment_results.json` — Evaluation logs, AST verification traces, violation counts, and OSR metrics across all iterations.
 - `135_diagrams_raw.puml` — Full corpus of all 135 generated diagrams across 3 repeated runs ($15\text{ specifications} \times 3\text{ models} \times 3\text{ runs}$).
 - `best_45_diagrams.puml` — Top 45 arbitrated diagrams selected across individual model runs.
@@ -44,7 +44,7 @@ The structural failure modes observed across baseline and repaired generations a
 
 The comprehensive artifact with before-and-after PlantUML snippets, diagnostic messages, and repair strategies is available in:
 
-📄 **[`TAXONOMY_EXAMPLES.md`](TAXONOMY_EXAMPLES.md)**
+📄 **[`OCL Violation Taxonomy-Examples.md`](OCL Violation Taxonomy-Examples.md)**
 
 ---
 
