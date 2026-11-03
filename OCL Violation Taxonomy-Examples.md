@@ -19,18 +19,3 @@ This document catalogs the three-tier taxonomy of Object Constraint Language (OC
 
 ---
 
-## 2. Type 1: Structural Omissions (Syntax-Level)
-
-Structural omissions represent incomplete declarations where domain concepts were correctly identified by the LLM, but required syntactic elements were omitted during token generation.
-
-### Constraint $C_1$: Non-Empty Class Bodies
-* **Formal OCL Rule:** `context Class inv: self.ownedAttribute->size() > 0`
-* **Baseline Violation:**
-  ```plantuml
-  @startuml
-  class LibraryCatalog {
-  }
-  class Book {
-    - title: String
-  }
-  @enduml
